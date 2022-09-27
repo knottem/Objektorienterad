@@ -1,13 +1,16 @@
 package Uppgift2;
 
-public class Fordon {
+abstract class Fordon {
 
-    int Hastighet;
+    int hastighet;
     int vikt;
 
-    public void ändraHastighet(){}
+    public void ändraHastighet(int hastighet){
+        this.hastighet = hastighet;
+    }
 
     public void printMe(){
-        System.out.println(Hastighet + " " + vikt);
+
     }
+
 }

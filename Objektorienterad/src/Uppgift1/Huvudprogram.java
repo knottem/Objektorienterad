@@ -2,7 +2,7 @@ package Uppgift1;
 
 public class Huvudprogram {
 
-    public Huvudprogram(){
+    protected Huvudprogram(){
 
         CarOwner p1 = new CarOwner("Erik", "gatan 1", 30);
         CarOwner p2 = new CarOwner("George", "gatan 2", 20);
