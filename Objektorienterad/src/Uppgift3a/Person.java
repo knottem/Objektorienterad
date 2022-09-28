@@ -1,4 +1,8 @@
 package Uppgift3a;
 
-public class Person {
+abstract class Person {
+
+    String namn;
+
+
 }

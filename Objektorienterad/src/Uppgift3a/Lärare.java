@@ -1,4 +1,4 @@
 package Uppgift3a;
 
-public class Lärare {
+public class Lärare extends Person{
 }

@@ -22,7 +22,7 @@ public class HusvagnsAnnons extends FordonAnnons{
         if(dusch){
             duschen = "har en fin dusch";
         }
-        if(!dusch){
+        else{
             duschen = "utan dusch";
         }
         return duschen;
