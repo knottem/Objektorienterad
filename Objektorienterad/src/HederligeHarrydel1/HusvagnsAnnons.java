@@ -14,13 +14,17 @@ public class HusvagnsAnnons extends FordonAnnons{
 
     @Override
     public String getAnnonsText() {
+        return rubrik + "\n " + beskrivning + " för bara " + pris + " kr och är en årsmodell från " + årsmodell + " med bara " + antalmil + " mil och " + duschen + " med " + bäddar + " antal bäddar\n";
+    }
+
+
+    public String getDuschen(boolean dusch){
         if(dusch){
             duschen = "har en fin dusch";
         }
         if(!dusch){
             duschen = "utan dusch";
         }
-
-        return rubrik + "\n " + beskrivning + " för bara " + pris + " kr och är en årsmodell från " + årsmodell + " med bara " + antalmil + " mil och " + duschen + " med " + bäddar + " antal bäddar";
+        return duschen;
     }
 }

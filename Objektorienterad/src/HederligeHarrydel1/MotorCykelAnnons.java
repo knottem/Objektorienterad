@@ -13,6 +13,6 @@ public class MotorCykelAnnons extends FordonAnnons{
 
     @Override
     public String getAnnonsText() {
-        return rubrik + "\n " + beskrivning + " för bara " + pris + " kr och är en årsmodell från " + årsmodell + " med bara " + antalmil + " mil och en " + motorvolym + " motorvolym och drivtypen är " + drivtyp;
+        return rubrik + "\n " + beskrivning + " för bara " + pris + " kr och är en årsmodell från " + årsmodell + " med bara " + antalmil + " mil och en " + motorvolym + " motorvolym och drivtypen är " + drivtyp + "\n";
     }
 }
