@@ -4,6 +4,5 @@ public interface Hjulburen {
 
     int getAntalHjul();
 
-
 }
 
