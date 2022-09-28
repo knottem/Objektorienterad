@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-       //Huvudprogram h = new Huvudprogram();
+       //Uppgift1.Huvudprogram h = new Uppgift1.Huvudprogram();
        new Huvudprogram();
 
     }

@@ -1,4 +1,4 @@
-package Uppgift3a;
+package Uppgift3.Uppgift3a;
 
 public class Uppgift3a {
 
@@ -8,9 +8,9 @@ public class Uppgift3a {
 
         Kurs[] javaKursen = new Kurs[20];
 
-        s1.addToKurs(javaKursen);
+       // s1.addToKurs(javaKursen);
 
-        javaKursen.
+       // javaKursen.
 
     }
 

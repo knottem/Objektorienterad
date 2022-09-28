@@ -1,4 +1,4 @@
-package Uppgift3a;
+package Uppgift3.Uppgift3a;
 
 public class Kurs {
 
@@ -10,7 +10,7 @@ public class Kurs {
     }
 
     public void addKursDeltagare(Kurs kurs, String namn){
-        kurs[i] = namn;
+       // kurs[i] = namn;
         i++;
     }
 

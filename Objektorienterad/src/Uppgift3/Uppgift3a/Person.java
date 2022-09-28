@@ -1,4 +1,4 @@
-package Uppgift3a;
+package Uppgift3.Uppgift3a;
 
 abstract class Person {
 
