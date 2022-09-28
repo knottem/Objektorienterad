@@ -14,7 +14,7 @@ public class HusvagnsAnnons extends FordonAnnons{
 
     @Override
     public String getAnnonsText() {
-        return rubrik + "\n " + beskrivning + " för bara " + pris + " kr och är en årsmodell från " + årsmodell + " med bara " + antalmil + " mil och " + duschen + " med " + bäddar + " antal bäddar\n";
+        return rubrik + "\n " + beskrivning + " för bara " + pris + " kr och är en årsmodell från " + årsmodell + " med bara " + antalmil + " mil och " + getDuschen(dusch) + " med " + bäddar + " antal bäddar\n";
     }
 
 
