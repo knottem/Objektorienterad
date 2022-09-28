@@ -6,6 +6,7 @@ public class BilAnnons extends FordonAnnons{
     boolean sommardäck;
     boolean vinterdäck;
 
+
     public BilAnnons(int pris, String rubrik, String beskrivning, int årsmodell, int antalmil, String färg, boolean sommardäck, boolean vinterdäck) {
         super(pris, rubrik, beskrivning, årsmodell, antalmil);
         Färg = färg;
@@ -24,6 +25,9 @@ public class BilAnnons extends FordonAnnons{
         }
         if(!sommardäck && vinterdäck){
             däck = "med fina vinterdäck";
+        }
+        if(!sommardäck && !vinterdäck){
+            däck = "inga däck ingår";
         }
         return rubrik + "\n " + beskrivning + " för bara " + pris + " kr och är en årsmodell från " + årsmodell + " med bara " + antalmil + " mil och en fin" + Färg + " färg" + däck;
     }
