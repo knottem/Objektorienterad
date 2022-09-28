@@ -10,6 +10,7 @@ public class Huvudprogramuppgift6 {
         Duva duvan = new Duva("Fågelfan");
         Aborre aborren = new Aborre("fisken");
 
+
         Djur[] djuren = {benzin, hunden, duvan, aborren};
 
         for (int i = 0; i < djuren.length; i++) {

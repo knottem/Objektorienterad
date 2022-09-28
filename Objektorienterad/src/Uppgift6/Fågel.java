@@ -1,6 +1,6 @@
 package Uppgift6;
 
-public class Fågel extends Djur{
+abstract class Fågel extends Djur{
 
 
     @Override
