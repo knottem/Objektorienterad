@@ -6,6 +6,7 @@ public class Palmtree extends Plants {
 
     public Palmtree(String name, double heightcm) {
         super(name, heightcm);
+        types = "Palmtree";
     }
 
     public double calculateLiquid(){
