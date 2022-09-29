@@ -1,6 +1,6 @@
 package Uppgift2;
 
-abstract class Fordon {
+abstract class Fordon implements Printable{
 
     private int hastighet;
     private int vikt;
@@ -20,11 +20,11 @@ abstract class Fordon {
     public void setVikt(int vikt) {
         this.vikt = vikt;
     }
-
+    public void printFordon(Fordon fordon){
+        fordon.printMe();
+    }
     public void ändraHastighet(int hastighet){
         this.hastighet = hastighet;
     }
-
-    abstract void printMe();
 
 }

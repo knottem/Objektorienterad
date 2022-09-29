@@ -6,6 +6,9 @@ public class Person {
     protected String adress;
     protected int age;
 
+    public Person(String namn, int personnummer) {
+    }
+
     public String getName() {
         return name;
     }

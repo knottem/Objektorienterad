@@ -5,7 +5,7 @@ Vad händer om vi gör detta:
     • Pepparkaka allt som Godsak har => g kommer att ha allt som godsak har
     • Däremot kommer inte g att ha tillgång form eller gräddning som ligger i pepparkaka
 
-    om man lägger dem som samma object så går det ha dem i samma arrays.
+     Om man lägger dem som samma object så går det ha dem i samma arrays.
 
 
 //plugga detta så jag fattar.
@@ -32,14 +32,14 @@ Dynamisk binding
     • Upprepa tills lämplig metod hittas, annars generera fel
 
 
-Abstracta klasser
-Abstract används när en klass aldrig ska instantieras
+Abstrakta klasser
+Abstract används när en klass aldrig ska Instantiates
 • Används för abstrakta begrepp
 • T.ex. Däggdjur
 • Anges före klassnamnet
 • abstract class Godsak
 
-Abstracta metoder
+Abstrakta metoder
     Får bara finnas i abstrakta klasser
     • Saknar metodkropp
     • Exempel:
@@ -47,7 +47,7 @@ Abstracta metoder
     • Placeholders
     • Visar att denna metod måste finnas implementerad i icke-abstrakta subklasser
 
-Finala klasser
+Final klasser
     När en klass aldrig ska ärvas
     • Inte så vanligt, men förekommer bland Javas egna klasser
         • T.ex String
@@ -55,16 +55,16 @@ Finala klasser
     • final class Ananaspizza
     final variabler går snabbare då dem inte kan ändras eller ärvas.
 
-Finala metoder
+Final metoder
     får inte överlagras
 
-Finala variabler
+Final variabler
     Dess värde får sättas en gång under en programkörning men aldrig mer
     • Värdet kan sättas
     • Direkt vid deklaration
     • Aldrig i övrig kod
 
-Polymorfism och abstraka klasser
+Polymorfism och abstrakta klasser
     Objekt av abstrakt typ kan inte instantieras
     • Däremot inget problem med referenser av abstrakt typ
     • Om vi antar att Godsak är abstrakt och Pepparkaka ärver Godsak
@@ -91,15 +91,14 @@ Primitiva variabler
 Referensvariabler
     Skapas genom
         • Person p = new Person();
-        • En pelare p pekar in i minnet där datat för ett
-    Person-objekt förvaras
+        • En pelare p pekar in i minnet där data för ett Person-objekt förvaras
         • Kan vara null
         • p har ingen giltig minnesadress
 
 Primitiva variabler och Referensvariabler
     Primitiva variabler och referensvariabler har olika minneshantering
         • Lagras i olika minnesareor
-    • Primitiver lagras direkt i stacken, tillsammans med
+    • Primitive lagras direkt i stacken, tillsammans med
         • Programinstruktioner
         • Minnespekare
     • Stacken är det som skrivs ut när era program kraschar
@@ -107,14 +106,14 @@ Primitiva variabler och Referensvariabler
     • Ger jättesnabb access!
 
 
-Wrapperklasser
+Wrapper klasser
     Det går snabbare att komma åt primitiva variabler
     • Primitiva variabler kan inte användas i Listor, eller i andra generiska klasser eller interface
         • Arrayer kan innehålla primitiva variabler
     • Men hur gör vi om vi vill ha en List med int:ar?
     • Java tillhandahåller Wrapper-klasser!
         • Man lägger en primitiv i en referensvariabel
-        • Exempel: Wrapperklassen Integer innhåller en int
+        • Exempel: Wrapper klassen Integer innehåller en int
     Det finns en wrapper-klass för varje primitiv typ:
         • Byte
         • Short
@@ -124,7 +123,7 @@ Wrapperklasser
         • Double
         • Boolean
         • Character
-        • Instanser av wrapperklasserna är vanliga referensvariabler
+        • Instanser av wrapper klasserna är vanliga referensvariabler
         • Som kan läggas i Listor
     Exempel på initiering:
         • Integer i = new Integer(34);
@@ -136,7 +135,7 @@ Wrapperklasser
 
 Interface List
     Aka "listor"
-        Man behöver itne veta på förhand hur många objet listan kommer at få
+        Man behöver inte veta på förhand hur många objet listan kommer at få
         lätt att stoppa in element och/eller flytta dem
     Eftersom List är ett interface måste vi använda implementerande klasser för att faktisk få till en lista,
     t.ex:
@@ -166,7 +165,7 @@ LinkedList
     • LinkedList används när vi har en lista där vi oftast lägger till nya element i början eller i mitten
     • Pga hur den är byggd kan man lätt länka in nya element var som helst i listan
 
-Otypad listor
+Otypade listor
     Om ingen typ anges när en List deklareras skapas en List av typen Object
     • Object är alla objekts superklass
     • Vi måste senare explicit typomvandla våra objekt om vi vill kunna anropa deras metoder (cast)
@@ -181,3 +180,57 @@ Klassen Collections
     • Sortera elementen i en lista
     • Exempel, byter plats på de två första elementen i listan minLista:
     • Collections.swap(minLista, 0, 1);
+
+Interface
+    Ett interface funkar ”ungefär som en abstrakt superklass”
+    • Förutom att det inte är en klass
+    • Definierar ett antal metoder
+    • Oftast abstrakta
+    • Används för att beskriva gemensamma egenskaper mellan klasser, som inte nödvändigtvis platsar i samma arvshierarki
+    • Ser inte mycket ut för världen, men är väldigt användbara
+    Multipelt arv i Java är förbjudet
+    • Hur gör man då om man vill att ens klass ska kunna ärva flera klasser?
+        • Jo, använder interface
+    • En klass får bara ärva en klass
+        • Men implementera hur många interface som helst
+    • Om klass A implementerar interfacet B:
+        • public class A implements B {…}
+        • public class A extends C implements B {…}
+    • Interface förstås lättast utifrån en historisk kontext.
+    • När de infördes vad de uppräkningar av abstrakt metoder
+    • Med tiden infördes implementerade metoder
+    • Även finala variabler är tillåtna
+    • Nuförtiden funkar de nästan helt som abstrakta klasser
+    • Förutom att de inte är klasser
+
+Interface liknar klasser
+    • Lagras i filstrukturen på samma sätt som klasser
+    • Filnamnet slutar på .java
+    • Får innehålla godtycklig mängd metoder
+
+Interface är olika klasser
+
+    Kan inte instantieras
+        • Samma som abstrakta klasser
+    • Ingen konstruktor
+    • Alla metoder abstrakta
+        • Utom default-metoderna
+    • Har sällan instansvariabler
+    • Kan inte ärvas av en klass, bara implementars
+    • Kan ärva multipla interface
+        • Då används extends
+
+Interface, deklarationer
+    • Interface är alltid implicit abstrakta
+    • Därför behövs aldrig ordet abstract användas vid definition av interface
+    • Interfacens metoder är alltid implicit abstrakta
+    • Förutom default-metoderna
+    • Därför behövs aldrig ordet abstract användas när vi definierar metoder
+    • Interface är implicit publika
+
+Polymorfism med interface
+    • Vi kan inte instantiera ett objekt av en interface-typ
+    • Däremot kan vi skapa referenser av interface-typ
+    • Från vår referens kommer vi åt alla metoder som finns definierade i interfacet
+        • Men inga av de instansmetoder som objektet har och som inte är definierade i interfacet
+    • Vi ”maskerar” vårt objekt till vårt interface

@@ -1,6 +1,7 @@
 package Uppgift2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Huvudprogram {
@@ -16,12 +17,22 @@ public class Huvudprogram {
         Båt b2 = new Båt(30,3000,6000);
         Tåg t1 = new Tåg(180,40000,6);
 
-        ArrayList<Fordon> allafordon = new ArrayList<Fordon>();
+        List<Fordon> allafordon2 = Arrays.asList(b1,b2,c1,t1);
+
+        ArrayList<Fordon> allafordon = new ArrayList<>();
 
         allafordon.add(b1);
         allafordon.add(b2);
         allafordon.add(c1);
         allafordon.add(t1);
+
+        System.out.println("-------------------------------");
+
+        printArray(allafordon);
+
+        System.out.println("-------------------------------");
+
+        printList(allafordon2);
 
         /*b1.printMe();
         c1.printMe();
@@ -51,14 +62,17 @@ public class Huvudprogram {
 
          */
 
-        System.out.println("-------------------------------");
 
-        printArray(allafordon);
     }
     public void printFordon(Fordon fordon){
         fordon.printMe();
     }
     public void printArray(ArrayList fordon){
+        for (Object o : fordon) {
+            printFordon((Fordon) o);
+        }
+    }
+    public void printList(List fordon){
         for (Object o : fordon) {
             printFordon((Fordon) o);
         }

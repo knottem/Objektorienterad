@@ -1,9 +1,12 @@
 package Bankomat.Account;
 
+import Bankomat.Person.Employee;
+
 public class Loan {
 
     private int amount;
     private double interest;
+
 
     public Loan(int amount, double interest) {
         this.amount = amount;
