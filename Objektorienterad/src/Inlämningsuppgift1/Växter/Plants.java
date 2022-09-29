@@ -4,8 +4,6 @@ import Inlämningsuppgift1.Tools;
 
 public class Plants implements Tools {
 
-
-
     double height;
     String name;
     String types;

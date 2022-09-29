@@ -30,12 +30,18 @@ public class Programmet {
         plantorna.add(Laura);
         plantorna.add(Putte);
 
+
+
         while(true) {
-                      int answer = JOptionPane.showConfirmDialog(null, "Hej vill du lägga till en planta eller använda dem som redan finns?\n YES för att lägga till, NO för att gå till nuvarande listan","Title", JOptionPane.YES_NO_OPTION);
+            int answer = JOptionPane.showConfirmDialog(null, "Hej vill du lägga till en planta eller använda dem som redan finns?\n YES för att lägga till, NO för att gå till nuvarande listan","Title", JOptionPane.YES_NO_OPTION);
                       if(answer == 0){
                           String name = JOptionPane.showInputDialog(null,"Vad heter Plantan?");
 
                           double height = Double.parseDouble(JOptionPane.showInputDialog(null, "Hur hög är plantan i cm?"));
+                            if(height <= 0){
+                                JOptionPane.showMessageDialog(null, "Plantan kan inte vara 0 cm eller negativt value");
+                                continue;
+                            }
 
                           Object choice = JOptionPane.showInputDialog(null, "Välj Planttypen", "Plantväljare", JOptionPane.QUESTION_MESSAGE, null, plantType, plantType[0]);
                           if(choice == "Kaktus"){
@@ -48,9 +54,12 @@ public class Programmet {
                           else if(choice == "Palm"){
                               plantorna.add(new Palmtree(name, height));
                           }
-
                       }
-                      break;
+                      else{
+                          break;
+                      }
+
+
                 }
 
 

@@ -8,7 +8,7 @@ public class Cactus extends Plants implements Tools {
 
     public Cactus(String name, double heightcm) {
         super(name, heightcm);
-        types = "Cactus";
+        types = "Kaktus";
     }
 
     @Override
