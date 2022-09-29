@@ -1,0 +1,15 @@
+Uppgift 10 – Bankomaten (finns inte i facit)
+Ni har fått i uppgift att designa ett banksystem.
+Systemet behöver hålla reda på följande
+• Vilka kunder banken har
+• Bankens personal, med personuppgifter och lön
+• Vilka konton och lån varje kund har (en kund kan ha flera konton och lån)
+Nackademin Yrkeshögskola • Tomtebodavägen 3a • 171 65 Solna • Tel +46 8 466 60 00 • E-post info@nackademin.se s.8/ 9
+• Räntesats och saldo på varje konto
+• Räntesats och belopp på varje lån
+• Det ska gå att se vilken anställd som har beviljat varje lån
+• Det ska finnas historik över ränteändringar och vilken anställd som beviljade ändringen
+Gör diagram över vilka klasser och interface som behöver finnas
+I varje klass, skriv ut vilka instansvariabler och instansmetoder som ska finnas. Markera om de är
+private/public eller protected
+Implementera objektmodellen till ditt system, alltså, skriv alla klasser och interface i kod.

@@ -1,0 +1,183 @@
+Vad händer om vi gör detta:
+    • Godsak g = new Pepparkaka();
+    • Det går alldeles utmärkt
+    • Vi har allokerat tillräckligt med minne för att hålla allt som behövs för en pepparkaka
+    • Pepparkaka allt som Godsak har => g kommer att ha allt som godsak har
+    • Däremot kommer inte g att ha tillgång form eller gräddning som ligger i pepparkaka
+
+    om man lägger dem som samma object så går det ha dem i samma arrays.
+
+
+//plugga detta så jag fattar.
+Polymorfism
+    • Betyder många former
+    • Antag att vi också har en klass Chips som ärver Godsak
+    • I alla 3 klasserna har vi metoden toString() som gör olika saker i de olika klasserna
+    • Låt oss göra följande:
+    • Godsak g1 = new Pepparkaka();
+    • Godsak g2 = new Godsak();
+    • Godsak g3 = new Chips();
+    • När vi exekverar g1.toString(), g2.toString(), g3.toString() kommer 3 olika metoder att köras,
+    • Fast vi har samma typ av referens i alla 3 fallen och anropar samma metodnamn.
+    • Detta är polymorfism
+
+
+
+
+Dynamisk binding
+    När en instansmetod anropas under exekvering kollar Javamotorn om
+    det finns en passande metod i den klass som objektet i fråga tillhör.
+    • Om ja, använd den metoden
+    • Om nej, fortsätt ett snäpp uppåt i arvshierarkin och leta där
+    • Upprepa tills lämplig metod hittas, annars generera fel
+
+
+Abstracta klasser
+Abstract används när en klass aldrig ska instantieras
+• Används för abstrakta begrepp
+• T.ex. Däggdjur
+• Anges före klassnamnet
+• abstract class Godsak
+
+Abstracta metoder
+    Får bara finnas i abstrakta klasser
+    • Saknar metodkropp
+    • Exempel:
+    • abstract void toString();
+    • Placeholders
+    • Visar att denna metod måste finnas implementerad i icke-abstrakta subklasser
+
+Finala klasser
+    När en klass aldrig ska ärvas
+    • Inte så vanligt, men förekommer bland Javas egna klasser
+        • T.ex String
+    • Exempel:
+    • final class Ananaspizza
+    final variabler går snabbare då dem inte kan ändras eller ärvas.
+
+Finala metoder
+    får inte överlagras
+
+Finala variabler
+    Dess värde får sättas en gång under en programkörning men aldrig mer
+    • Värdet kan sättas
+    • Direkt vid deklaration
+    • Aldrig i övrig kod
+
+Polymorfism och abstraka klasser
+    Objekt av abstrakt typ kan inte instantieras
+    • Däremot inget problem med referenser av abstrakt typ
+    • Om vi antar att Godsak är abstrakt och Pepparkaka ärver Godsak
+    • Godsak g = new Godsak();
+        • Inte ok!
+    • Godsak g = new Pepparkaka();
+        • Ok!
+
+Primitiva variabler
+     Följande finns:
+        • byte
+        • short
+        • int
+        • float
+        • double
+        • long
+        • boolean
+        • char
+    • Börjar på liten bokstav
+    • Vi behöver inte göra ”new” när vi skapar dessa
+    • Exempel: int i = 4;
+    • Kan aldrig vara null
+
+Referensvariabler
+    Skapas genom
+        • Person p = new Person();
+        • En pelare p pekar in i minnet där datat för ett
+    Person-objekt förvaras
+        • Kan vara null
+        • p har ingen giltig minnesadress
+
+Primitiva variabler och Referensvariabler
+    Primitiva variabler och referensvariabler har olika minneshantering
+        • Lagras i olika minnesareor
+    • Primitiver lagras direkt i stacken, tillsammans med
+        • Programinstruktioner
+        • Minnespekare
+    • Stacken är det som skrivs ut när era program kraschar
+        • Även känd från ”stackoverflow.com”
+    • Ger jättesnabb access!
+
+
+Wrapperklasser
+    Det går snabbare att komma åt primitiva variabler
+    • Primitiva variabler kan inte användas i Listor, eller i andra generiska klasser eller interface
+        • Arrayer kan innehålla primitiva variabler
+    • Men hur gör vi om vi vill ha en List med int:ar?
+    • Java tillhandahåller Wrapper-klasser!
+        • Man lägger en primitiv i en referensvariabel
+        • Exempel: Wrapperklassen Integer innhåller en int
+    Det finns en wrapper-klass för varje primitiv typ:
+        • Byte
+        • Short
+        • Integer
+        • Long
+        • Float
+        • Double
+        • Boolean
+        • Character
+        • Instanser av wrapperklasserna är vanliga referensvariabler
+        • Som kan läggas i Listor
+    Exempel på initiering:
+        • Integer i = new Integer(34);
+        • Integer i2 = new Integer(”34”);
+        • Boolean b = new Boolean(”True”);
+    • Exempel på ”autoboxing” (man skippar new)
+        • Integer i = 24;
+        • Double d1 = 3.23;
+
+Interface List
+    Aka "listor"
+        Man behöver itne veta på förhand hur många objet listan kommer at få
+        lätt att stoppa in element och/eller flytta dem
+    Eftersom List är ett interface måste vi använda implementerande klasser för att faktisk få till en lista,
+    t.ex:
+        • LinkedList
+        • ArrayList
+        • Vector (gammal, använd inte den)
+    Ex:
+    List<x> x1 =
+    new Arraylist<>();
+    new LinkedList<>();
+
+    List är generisk
+        • List kan innehålla objekt av vilken typ som helst
+        • List kan inte innehålla primitiva variabler
+    • Exempel:
+        • List<typ> = new ArrayList<>();
+        • List<typ> = new LinkedList<>();
+
+Arraylist
+    List<typ> = new ArrayList<>();
+    • ArrayList används när vi har en lista där vi oftast lägger till nya element på slutet
+        • Men inte ofta i början
+        • Eller i mitten
+
+LinkedList
+    List<typ> = new LinkedList<>();
+    • LinkedList används när vi har en lista där vi oftast lägger till nya element i början eller i mitten
+    • Pga hur den är byggd kan man lätt länka in nya element var som helst i listan
+
+Otypad listor
+    Om ingen typ anges när en List deklareras skapas en List av typen Object
+    • Object är alla objekts superklass
+    • Vi måste senare explicit typomvandla våra objekt om vi vill kunna anropa deras metoder (cast)
+        • Inte best practice med otypade listor
+
+Klassen Collections
+    Listornas motsvarighet till Arrays-klassen heter Collections
+    • Om du vill göra ytterligare saker med listor, men inget färdigt stöd finns i List-interfacet eller i de implementerande klasserna?
+    • Klassen Collections innehåller hjälpmetoder, t.ex:
+    • Byta plats på två objekt i en lista
+    • Blanda objekten i en lista
+    • Sortera elementen i en lista
+    • Exempel, byter plats på de två första elementen i listan minLista:
+    • Collections.swap(minLista, 0, 1);

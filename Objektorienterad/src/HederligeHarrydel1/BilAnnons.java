@@ -2,10 +2,11 @@ package HederligeHarrydel1;
 
 public class BilAnnons extends FordonAnnons{
 
-    String Färg;
-    boolean sommardäck;
-    boolean vinterdäck;
-    String däck;
+    private String Färg;
+    private boolean sommardäck;
+    private boolean vinterdäck;
+    private String däck;
+
 
 
     public BilAnnons(int pris, String rubrik, String beskrivning, int årsmodell, int antalmil, String färg, boolean sommardäck, boolean vinterdäck) {
@@ -17,7 +18,7 @@ public class BilAnnons extends FordonAnnons{
 
     @Override
     public String getAnnonsText() {
-        return rubrik + "\n " + beskrivning + " för bara " + pris + " kr och är en årsmodell från " + årsmodell + " med bara " + antalmil + " mil och en fin" + Färg + " färg " + getDäck(sommardäck,vinterdäck) + "\n";
+        return getRubrik() + "\n " + getBeskrivning() + " för bara " + getPris() + " kr och är en årsmodell från " + getÅrsmodell() + " med bara " + getAntalmil() + " mil och en fin" + Färg + " färg " + getDäck(sommardäck,vinterdäck) + "\n";
     }
 
 

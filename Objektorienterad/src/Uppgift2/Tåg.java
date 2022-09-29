@@ -2,19 +2,19 @@ package Uppgift2;
 
 public class Tåg extends Fordon implements Printable, Hjulburen{
 
-    int antalVagnar;
-    int hjul = 30;
+    private int antalVagnar;
+    private int hjul = 30;
 
     public Tåg(int hastighet,int vikt, int antalvagnar) {
-        this.hastighet = hastighet;
-        this.vikt = vikt;
+        setHastighet(hastighet);
+        setVikt(vikt);
         this.antalVagnar = antalvagnar;
     }
 
     public void kopplaVagn(){}
 
    public void printMe(){
-        System.out.println("Tåget har en hastighet av " + hastighet + " och vikt av " + vikt + " och har även " + antalVagnar + " vagnar.");
+        System.out.println("Tåget har en hastighet av " + getHastighet() + " och vikt av " + getVikt() + " och har även " + antalVagnar + " vagnar.");
     }
 
     @Override
