@@ -1,5 +1,4 @@
-package Inlämningsuppgift1.Växter;
-import Inlämningsuppgift1.Tools;
+package Inlämningsuppgift1.Plants;
 
 public class Carnivorousplant extends Plants implements Tools {
 
@@ -9,6 +8,7 @@ public class Carnivorousplant extends Plants implements Tools {
     public Carnivorousplant(String name, double heightcm) {
         super(name, heightcm);
         types = "Köttätandeväxt";
+        liquidType = "Proteindryck";
     }
 
     @Override

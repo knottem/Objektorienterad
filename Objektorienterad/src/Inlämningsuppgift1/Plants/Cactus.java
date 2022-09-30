@@ -1,6 +1,4 @@
-package Inlämningsuppgift1.Växter;
-
-import Inlämningsuppgift1.Tools;
+package Inlämningsuppgift1.Plants;
 
 public class Cactus extends Plants implements Tools {
 
@@ -9,6 +7,7 @@ public class Cactus extends Plants implements Tools {
     public Cactus(String name, double heightcm) {
         super(name, heightcm);
         types = "Kaktus";
+        liquidType = "Mineral Vatten";
     }
 
     @Override

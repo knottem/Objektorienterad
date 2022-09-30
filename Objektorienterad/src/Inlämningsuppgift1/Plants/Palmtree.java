@@ -1,4 +1,4 @@
-package Inlämningsuppgift1.Växter;
+package Inlämningsuppgift1.Plants;
 
 public class Palmtree extends Plants {
 
@@ -7,6 +7,7 @@ public class Palmtree extends Plants {
     public Palmtree(String name, double heightcm) {
         super(name, heightcm);
         types = "Palm";
+        liquidType = "Vatten";
     }
 
     public double calculateLiquid(){

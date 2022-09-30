@@ -1,12 +1,11 @@
-package Inlämningsuppgift1.Växter;
+package Inlämningsuppgift1.Plants;
 
-import Inlämningsuppgift1.Tools;
+public abstract class Plants implements Tools {
 
-public class Plants implements Tools {
-
-    double height;
-    String name;
-    String types;
+    protected double height;
+    protected String name;
+    protected String types;
+    protected String liquidType;
 
 
     public Plants(String name, double heightcm) {
@@ -20,6 +19,10 @@ public class Plants implements Tools {
 
     public String getName() {
         return name;
+    }
+
+    public String getLiquidType() {
+        return liquidType;
     }
 
     public String getTypes(){ return types;}
