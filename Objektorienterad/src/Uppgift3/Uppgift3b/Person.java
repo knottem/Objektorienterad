@@ -1,11 +1,9 @@
-package Uppgift3.Uppgift3a;
+package Uppgift3.Uppgift3b;
 
 abstract class Person {
 
     protected String namn;
     protected String personnummer;
-
-    Person(){}
 
     Person(String namn, String personnummer){
         this.namn = namn;

@@ -1,11 +1,11 @@
-package Uppgift3.Uppgift3a;
+package Uppgift3.Uppgift3b;
+
 
 import java.util.List;
 
 public class Lärare extends Person {
 
-    protected Kurs[] undervisar;
-    private int kursCounter = 0;
+    protected List<Kurs> undervisar;
 
     public Lärare(String namn, String personnummer){
         super(namn, personnummer);
@@ -16,7 +16,11 @@ public class Lärare extends Person {
     }
 
     public void läggTillUndervisadKurs(Kurs kurs){
-        undervisar[kursCounter++] = kurs;
+        undervisar.add(kurs);
+    }
+
+    public void taBortUndervisadKurs(Kurs kurs){
+        undervisar.remove(kurs);
     }
 
 }

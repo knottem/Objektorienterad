@@ -1,15 +1,17 @@
-package Uppgift3.Uppgift3a;
+package Uppgift3.Uppgift3b;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Kurs {
 
     protected String namn;
     protected Lärare lärare;
-    protected Student[] studenter;
-    private int studentCounter = 0;
+    protected List<Student> studenter;
 
     Kurs(String namn){
         this.namn = namn;
-        studenter = new Student[10];
+        studenter = new ArrayList<>();
     }
 
     public String getNamn(){
@@ -20,12 +22,16 @@ public class Kurs {
         return lärare;
     }
 
-    public Student[] getStudenter(){
+    public List<Student> getStudenter(){
         return studenter;
     }
 
     public void läggTillStudent(Student student){
-        studenter[studentCounter++] = student;
+        studenter.add(student);
+    }
+
+    public void taBortStudent(Student student){
+        studenter.remove(student);
     }
 
     public void läggTillLärare(Lärare lärare){
@@ -36,5 +42,3 @@ public class Kurs {
         this.lärare = null;
     }
 }
-
-

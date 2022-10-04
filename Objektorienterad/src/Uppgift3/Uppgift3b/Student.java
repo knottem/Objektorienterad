@@ -1,4 +1,4 @@
-package Uppgift3.Uppgift3a;
+package Uppgift3.Uppgift3b;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,19 +6,22 @@ import java.util.List;
 
 public class Student extends Person {
 
-    protected Kurs[] deltarI;
-    private int kursCounter = 0;
+    protected List<Kurs> deltarI;
 
     public Student(String namn, String personnummer){
         super(namn, personnummer);
-        deltarI = new Kurs[10];
+        deltarI = new ArrayList<>();
     };
 
     public void läggTillKurs(Kurs kurs){
-        deltarI[kursCounter++] = kurs;
+        deltarI.add(kurs);
     }
 
-    public Kurs[] getAllaKurser(){
+    public void taBortKurs(Kurs kurs){
+        deltarI.remove(kurs);
+    }
+
+    public List<Kurs> getAllaKurser(){
         return deltarI;
     }
 

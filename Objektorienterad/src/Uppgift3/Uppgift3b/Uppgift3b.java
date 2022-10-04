@@ -1,8 +1,8 @@
-package Uppgift3.Uppgift3a;
+package Uppgift3.Uppgift3b;
 
-public class Uppgift3a {
+public class Uppgift3b {
 
-    Uppgift3a(){
+    Uppgift3b(){
         Student George = new Student("George", "8003021234");
         Student Pelle = new Student("Pelle", "1212121212");
         Student Marcie = new Student("Marcie", "8512159876");
@@ -36,7 +36,7 @@ public class Uppgift3a {
     }
 
     public static void main(String[] args) {
-        Uppgift3a övn3 = new Uppgift3a();
+        Uppgift3b övn3 = new Uppgift3b();
     }
 
 }
