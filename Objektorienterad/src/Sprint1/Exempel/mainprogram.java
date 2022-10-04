@@ -1,10 +1,14 @@
 package Sprint1.Exempel;
 
+import Sprint1.Exempel.Godsaker.Godsak;
+import Sprint1.Exempel.Godsaker.Pepparkaka;
+
 public class mainprogram {
 
     public static void main(String[] args){
 
         Godsak g = new Godsak(1);
+
         Pepparkaka p = new Pepparkaka(true, "gubbe", 5);
 
         Godsak gp = new Pepparkaka(true, "gumma", 7);

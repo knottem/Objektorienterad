@@ -1,20 +1,8 @@
-package Sprint1.Exempel;
+package Sprint1.Exempel.Godsaker;
 
-class Godsak {
-    int kaloriinehåll;
-    public Godsak(int k){
-        kaloriinehåll = k;
-    }
-    public Godsak(){}
+public class Pepparkaka extends Godsak {
 
-    public void printMe(){
-        System.out.println("jag är en godsak");
-    }
-}
-
-class Pepparkaka extends Godsak{
     boolean gräddad;
-    //int kaloriinehåll;
     String form;
     public Pepparkaka(boolean gräddad, String form,
                       int kaloriinnehåll){
