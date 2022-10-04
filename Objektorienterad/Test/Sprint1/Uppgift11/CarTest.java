@@ -4,11 +4,10 @@ import Sprint1.Uppgift1.Car;
 import Sprint1.Uppgift1.CarOwner;
 import org.testng.annotations.Test;
 
-public class Biltest{
+public class CarTest{
 
 
     Car c1 = new Car("asd456", "Panda", "Fiat");
-    Car c2 = new Car("abc123", "V70", "Volvo");
 
     CarOwner c3 = new CarOwner("Kalle", "hemma", 45);
     CarOwner c4 = new CarOwner("Sally", "hemma", 24);

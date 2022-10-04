@@ -3,8 +3,6 @@ package Sprint1.Uppgift11;
 import Sprint1.Uppgift9.RomanNumeral;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class RomanNumeralTest {
 
     @Test
