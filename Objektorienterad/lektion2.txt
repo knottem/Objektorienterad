@@ -42,7 +42,7 @@ Abstract används när en klass aldrig ska Instantiates
 Abstrakta metoder
     Får bara finnas i abstrakta klasser
     • Saknar metodkropp
-    • Exempel:
+    • Sprint1.Exempel:
     • abstract void toString();
     • Placeholders
     • Visar att denna metod måste finnas implementerad i icke-abstrakta subklasser
@@ -51,7 +51,7 @@ Final klasser
     När en klass aldrig ska ärvas
     • Inte så vanligt, men förekommer bland Javas egna klasser
         • T.ex String
-    • Exempel:
+    • Sprint1.Exempel:
     • final class Ananaspizza
     final variabler går snabbare då dem inte kan ändras eller ärvas.
 
@@ -85,7 +85,7 @@ Primitiva variabler
         • char
     • Börjar på liten bokstav
     • Vi behöver inte göra ”new” när vi skapar dessa
-    • Exempel: int i = 4;
+    • Sprint1.Exempel: int i = 4;
     • Kan aldrig vara null
 
 Referensvariabler
@@ -113,7 +113,7 @@ Wrapper klasser
     • Men hur gör vi om vi vill ha en List med int:ar?
     • Java tillhandahåller Wrapper-klasser!
         • Man lägger en primitiv i en referensvariabel
-        • Exempel: Wrapper klassen Integer innehåller en int
+        • Sprint1.Exempel: Wrapper klassen Integer innehåller en int
     Det finns en wrapper-klass för varje primitiv typ:
         • Byte
         • Short
@@ -125,11 +125,11 @@ Wrapper klasser
         • Character
         • Instanser av wrapper klasserna är vanliga referensvariabler
         • Som kan läggas i Listor
-    Exempel på initiering:
+    Sprint1.Exempel på initiering:
         • Integer i = new Integer(34);
         • Integer i2 = new Integer(”34”);
         • Boolean b = new Boolean(”True”);
-    • Exempel på ”autoboxing” (man skippar new)
+    • Sprint1.Exempel på ”autoboxing” (man skippar new)
         • Integer i = 24;
         • Double d1 = 3.23;
 
@@ -150,7 +150,7 @@ Interface List
     List är generisk
         • List kan innehålla objekt av vilken typ som helst
         • List kan inte innehålla primitiva variabler
-    • Exempel:
+    • Sprint1.Exempel:
         • List<typ> = new ArrayList<>();
         • List<typ> = new LinkedList<>();
 
@@ -178,7 +178,7 @@ Klassen Collections
     • Byta plats på två objekt i en lista
     • Blanda objekten i en lista
     • Sortera elementen i en lista
-    • Exempel, byter plats på de två första elementen i listan minLista:
+    • Sprint1.Exempel, byter plats på de två första elementen i listan minLista:
     • Collections.swap(minLista, 0, 1);
 
 Interface
