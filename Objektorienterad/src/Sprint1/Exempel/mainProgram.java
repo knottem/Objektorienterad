@@ -3,7 +3,7 @@ package Sprint1.Exempel;
 import Sprint1.Exempel.Godsaker.Godsak;
 import Sprint1.Exempel.Godsaker.Pepparkaka;
 
-public class mainprogram {
+public class mainProgram {
 
     public static void main(String[] args){
 

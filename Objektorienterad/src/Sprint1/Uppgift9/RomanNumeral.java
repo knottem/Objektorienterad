@@ -6,7 +6,7 @@ public enum RomanNumeral {
     X("ten", 10),
     L("fifty", 50),
     C("a hundred", 100),
-    D("fivehundred", 500),
+    D("five hundred", 500),
     M("a thousand", 1000)
     ;
 
