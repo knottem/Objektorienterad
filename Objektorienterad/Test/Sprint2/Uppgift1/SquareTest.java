@@ -13,8 +13,8 @@ class SquareTest{
     void Test(){
         assertEquals(3, s1.getLength());
         assertNotEquals(4, s1.getLength());
-        assertTrue(s1.getWidth() == 3);
-        assertFalse(s1.getWidth() == 4);
+        assertEquals(3, s1.getWidth());
+        assertNotEquals(4, s1.getWidth());
 
     }
 
