@@ -41,9 +41,7 @@ public class Triangle implements Figure{
 
     @Override
     public double getCircumference() {
-        double answer = lengthOfOneSide()*2 + base;
-        BigDecimal bigDecimal = BigDecimal.valueOf(answer).setScale(1, RoundingMode.HALF_UP);
-        return bigDecimal.doubleValue();
+        return roundDouble(lengthOfOneSide()*2 + base);
 
     }
 }
