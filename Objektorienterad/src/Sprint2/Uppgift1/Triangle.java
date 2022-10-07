@@ -36,7 +36,7 @@ public class Triangle implements Figure{
     }
 
     private double lengthOfOneSide(){
-        return Math.sqrt(((base/2)*(base/2)) + (height*height));
+        return Math.sqrt(((base/2)*(base/2)) + (height*height)); //roten av pythagoras sats get längden på sidorna i en likbent triangel
     }
 
     @Override
