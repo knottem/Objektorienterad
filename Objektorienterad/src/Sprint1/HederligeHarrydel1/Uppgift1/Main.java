@@ -1,4 +1,4 @@
-package Sprint1.Uppgift1;
+package Sprint1.HederligeHarrydel1.Uppgift1;
 
 public class Main {
 

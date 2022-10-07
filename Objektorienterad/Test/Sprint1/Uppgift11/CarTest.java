@@ -1,7 +1,7 @@
 package Sprint1.Uppgift11;
 
-import Sprint1.Uppgift1.Car;
-import Sprint1.Uppgift1.CarOwner;
+import Sprint1.HederligeHarrydel1.Uppgift1.Car;
+import Sprint1.HederligeHarrydel1.Uppgift1.CarOwner;
 import org.testng.annotations.Test;
 
 public class CarTest{
@@ -24,24 +24,5 @@ public class CarTest{
         c1.newOwner(c4);
         assert(c1.getOwner().getName().equals("Sally"));
 
-    }
-
-    public static class RomanNumeralTest {
-
-        @Test
-        public void testGetNumeral() {
-        }
-
-        @Test
-        public void testGetNumber() {
-        }
-
-        @Test
-        public void testValues() {
-        }
-
-        @Test
-        public void testValueOf() {
-        }
     }
 }

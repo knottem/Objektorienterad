@@ -7,6 +7,7 @@ public class mainProgram {
 
     public static void main(String[] args){
 
+
         Godsak g = new Godsak(1);
 
         Pepparkaka p = new Pepparkaka(true, "gubbe", 5);
@@ -22,5 +23,6 @@ public class mainProgram {
         g.printMe();
         p.printMe();
         gp.printMe();
+
     }
 }
