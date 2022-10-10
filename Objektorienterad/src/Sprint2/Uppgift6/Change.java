@@ -29,6 +29,15 @@ public class Change {
         return cost - getValueAmount * value;
     }
 
+    public String type(int value){
+        if(value >= 20){
+            return "lappar";
+        }
+        else{
+            return "kronor";
+        }
+    }
+
     public void printAll(int change){
         for(int i= 0; i < values.length; i++){
             int value = values[i];
@@ -43,8 +52,17 @@ public class Change {
         }
     }
 
-    public String valueText(int valueamount, int value){
-        return "Amount of " + value + ": " + valueamount;
+    public String valueText(int valueAmount, int value){
+
+        //return "Antal " + value + "-" + type(value)+ ": " + valueAmount; //Vanlig String
+
+        StringBuilder sb = new StringBuilder("Antal "); //ful stringbuilder
+        sb.append(value);
+        sb.append("-");
+        sb.append(type(value));
+        sb.append(": ");
+        sb.append(valueAmount);
+        return sb.toString();
     }
 
     public int input(String text){
