@@ -1,8 +1,5 @@
 package Sprint2.Uppgift1;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class Circle implements Figure{
 
 
