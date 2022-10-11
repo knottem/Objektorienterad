@@ -26,8 +26,8 @@ public class Change {
         return change / value;
     }
 
-    public int removeLargestValue(int cost, int value, int getValueAmount){
-        return cost - getValueAmount * value;
+    public int removeLargestValue(int change, int value, int getValueAmount){
+        return change - getValueAmount * value;
     }
 
     public String type(int value){
@@ -45,11 +45,8 @@ public class Change {
             int valueAmount = getValueAmount(change, value);
             if(valueAmount >= 1) {
                 System.out.println(valueText(valueAmount, value));
-                change = removeLargestValue(change, value, valueAmount);
             }
-            else {
-                change = removeLargestValue(change, value, valueAmount);
-            }
+            change = removeLargestValue(change, value, valueAmount);
         }
     }
 
