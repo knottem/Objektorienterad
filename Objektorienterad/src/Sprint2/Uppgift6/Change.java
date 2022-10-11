@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Change {
 
     int[] values = {1000,500,200,100,50,20,10,5,2,1};
+    StringBuilder sb = new StringBuilder();
 
     public void Program(){
 
@@ -55,8 +56,8 @@ public class Change {
     public String valueText(int valueAmount, int value){
 
         //return "Antal " + value + "-" + type(value)+ ": " + valueAmount; //Vanlig String
-
-        StringBuilder sb = new StringBuilder("Antal "); //ful stringbuilder
+        sb.setLength(0);
+        sb.append("Antal "); //ful StringBuilder
         sb.append(value);
         sb.append("-");
         sb.append(type(value));
