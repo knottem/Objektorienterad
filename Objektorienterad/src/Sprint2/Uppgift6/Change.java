@@ -1,17 +1,16 @@
 package Sprint2.Uppgift6;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import Tools.Tools;
 
-public class Change {
+public class Change extends Tools {
 
     int[] values = {1000,500,200,100,50,20,10,5,2,1};
     StringBuilder sb = new StringBuilder();
 
     public void Program(){
 
-        int cost = input("How much did it cost?");
-        int payed = input("How much did you pay?");
+        int cost = inputInt("How much did it cost?");
+        int payed = inputInt("How much did you pay?");
         int change = getChange(cost, payed);
 
         printAll(change);
@@ -62,23 +61,6 @@ public class Change {
         sb.append(valueAmount);
         return sb.toString();
     }
-
-    public int input(String text){
-        while(true) {
-            Scanner scan = new Scanner(System.in);
-            try {
-                System.out.println(text);
-                return scan.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Wrong Type");
-                scan.next();
-            } catch (NumberFormatException e) {
-                System.out.println("Expected a number");
-                scan.next();
-            }
-        }
-    }
-
     public static void main(String[] args) {
         Change c1 = new Change();
         c1.Program();
