@@ -1,10 +1,13 @@
 Hur skiljer sig String från StringBuilder?
 
-    String är oföränderlig och stringbuilder är föränderlig, när man ändrar en string så skapas en ny plats i minnet med den "ändrade" stringen.
-
-Hur funkar try-catch-block?
+    String är oföränderlig och StringBuilder är föränderlig, när man ändrar en string så skapas en ny plats i minnet med den "ändrade" stringen.
 
 Varför kan det vara problematiskt att ändra samma String ofta?
 
+Hur funkar try-catch-block?
+
 Varför anses det vara best practice att köra sina tester innan man ens har byggt den kod
 som ska testas i testet?
+
+
+

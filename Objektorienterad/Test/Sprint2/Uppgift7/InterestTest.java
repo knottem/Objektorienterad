@@ -19,7 +19,7 @@ public class InterestTest {
         assertEquals(i1.calculateInterest(sum, 1.1,year), 110.00);
         assertEquals(i1.calculateInterest(sum,1.1,year2), 121.00);
         assertEquals(i1.calculateInterest(sum,1.1,year3), 133.10);
-        assertEquals(i1.calculateInterest(sum,1.1, year4), 146.41);
+        assertEquals(i1.calculateInterest(sum,1.1,year4), 146.41);
     }
 
 }

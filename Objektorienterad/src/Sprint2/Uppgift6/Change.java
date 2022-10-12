@@ -4,7 +4,7 @@ import Tools.Tools;
 
 public class Change extends Tools {
 
-    int[] values = {1000,500,200,100,50,20,10,5,2,1};
+    final int[] values = {1000,500,200,100,50,20,10,5,2,1};
     StringBuilder sb = new StringBuilder();
 
     public void Program(){
