@@ -12,6 +12,7 @@ public class Interest extends Tools{
 
         double sum = inputDouble("Hur mycket ska du spara?");
         int year = inputInt("Hur många år?");
+        //double interest = inputDouble("Vad är räntan?");
 
         System.out.println("År                Sum");
         System.out.println("---------------------");
