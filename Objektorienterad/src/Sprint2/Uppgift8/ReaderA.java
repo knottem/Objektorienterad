@@ -18,8 +18,8 @@ public class ReaderA {
                 new FileReader("Objektorienterad/src/Sprint2/Uppgift8/temp.txt"))) {
 
             while ((print = test.readLine()) != null) {
-                double temp = parseDoubleValue(print);
-                list.add(temp);
+                double a = parseDoubleValue(print);
+                list.add(a);
             }
         }catch (Exception e){
             System.out.println("Error");
@@ -55,9 +55,7 @@ public class ReaderA {
         return value / list.size();
     }
     public double parseDoubleValue(String val){
-        String replaced = val.replaceAll(",", ".");
-        return Double.parseDouble(replaced);
-
+        return Double.parseDouble(val.replaceAll(",", "."));
     }
 
     public static void main(String[] args) throws IOException {
