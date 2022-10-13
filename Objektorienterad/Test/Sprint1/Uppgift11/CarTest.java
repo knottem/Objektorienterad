@@ -2,7 +2,7 @@ package Sprint1.Uppgift11;
 
 import Sprint1.HederligeHarrydel1.Uppgift1.Car;
 import Sprint1.HederligeHarrydel1.Uppgift1.CarOwner;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 public class CarTest{
 

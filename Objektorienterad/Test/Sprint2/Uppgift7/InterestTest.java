@@ -3,7 +3,7 @@ package Sprint2.Uppgift7;
 import org.junit.jupiter.api.Test;
 
 
-import static org.testng.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InterestTest {
 
