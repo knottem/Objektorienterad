@@ -4,39 +4,40 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class PersonalData{
+    ArrayList<Person> personal = new ArrayList<>();
+    ArrayList<Person> personal2;
+    String filepath = "Objektorienterad/src/Sprint2/Uppgift9/Personuppgifter.txt";
+    String filepath2 = "Objektorienterad/src/Sprint2/Uppgift9/Personuppgifterlanga.txt";
     public void Program() throws IOException {
 
-        ArrayList<Person> personal = new ArrayList<>();
-        String filepath = "Objektorienterad/src/Sprint2/Uppgift9/Personuppgifter.txt";
-        String filepath2 = "Objektorienterad/src/Sprint2/Uppgift9/Personuppgifterlanga.txt";
         addPersonal(personal, filepath);
-        ArrayList<Person> personal2;
-        personal2 = checkTallest(personal);
         printPerson(personal);
+
         System.out.println("----------");
+
+        personal2 = checkTallest(personal);
         printPerson(personal2);
         createFile(personal2, filepath2);
     }
     public ArrayList<Person> checkTallest(ArrayList<Person> personal){
         ArrayList<Person> height = new ArrayList<>();
-        for (int i = 0; i < personal.size(); i++) {
-            if(personal.get(i).length >= 200) {
-               height.add(personal.get(i));
+        for (Person person : personal) {
+            if (person.length >= 200) {
+                height.add(person);
             }
         }
         return height;
     }
 
     public void printPerson(ArrayList<Person> personal){
-        for (int i = 0; i < personal.size(); i++) {
-            System.out.println("Namn: " + personal.get(i).namn + " Adress:" +
-                    personal.get(i).adress + " Postnr: " + personal.get(i).postnr);
-            System.out.println("Ålder: " + personal.get(i).age + " Vikt: " + personal.get(i).weight +
-                    " Längd: " + personal.get(i).length + "\n");
+        for (Person person : personal) {
+            System.out.println("Namn: " + person.namn + " Adress:" +
+                    person.adress + " Postnr: " + person.postnr);
+            System.out.println("Ålder: " + person.age + " Vikt: " + person.weight +
+                    " Längd: " + person.length + "\n");
         }
 
     }
@@ -70,12 +71,12 @@ public class PersonalData{
     public void createFile(ArrayList<Person> personal, String filepath ) throws IOException {
         FileWriter writer;
         try {
-            writer = new FileWriter(filepath, true);
-            for (int i = 0; i < personal.size(); i++) {
-                writer.write("Namn: " + personal.get(i).namn + " Adress:" +
-                        personal.get(i).adress + " Postnr: " + personal.get(i).postnr);
-                writer.write("Ålder: " + personal.get(i).age + " Vikt: " + personal.get(i).weight +
-                        " Längd: " + personal.get(i).length + "\n");
+            writer = new FileWriter(filepath, false);
+            for (Person person : personal) {
+                writer.write("Namn: " + person.namn + " Adress:" +
+                        person.adress + " Postnr: " + person.postnr + "\n");
+                writer.write("Ålder: " + person.age + " Vikt: " + person.weight +
+                        " Längd: " + person.length + "\n\n");
             }
 
         } catch (IOException e) {
