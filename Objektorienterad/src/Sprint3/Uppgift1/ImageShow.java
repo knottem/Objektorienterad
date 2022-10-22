@@ -13,7 +13,7 @@ public class ImageShow extends JFrame implements ActionListener {
     JLabel imageViewer;
     JPanel panel;
     final ArrayList<String> files = new ArrayList<>();
-    int imageIndex = 0;
+    int index = 0;
     int counter = 0;
 
     public void imageShow() throws IOException {
@@ -23,10 +23,9 @@ public class ImageShow extends JFrame implements ActionListener {
         changeImageButton = new JButton("Change picture");
         changeImageButton.addActionListener(this);
 
-        imageViewer = new JLabel(new ImageIcon(new ImageIcon(files.get(imageIndex)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
+        imageViewer = new JLabel(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
 
         panel = new JPanel();
-        panel.setLayout(new FlowLayout());
         panel.setBackground(Color.BLACK);
         panel.add(imageViewer);
         panel.add(changeImageButton);
@@ -37,8 +36,13 @@ public class ImageShow extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     public void actionPerformed(ActionEvent e) {
-        imageIndex = (imageIndex + 1) % counter;
-        imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(imageIndex)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
+        if(index<(counter-1)){
+            index++;
+        }
+        else{
+            index = 0;
+        }
+        imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
     }
 
     void listFiles(Path path) throws IOException {
