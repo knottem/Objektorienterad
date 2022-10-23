@@ -18,7 +18,7 @@ public class TextEditor implements ActionListener{
 
     public void editor(){
 
-
+        filename.setSize(100,10);
         open = new JButton("Öppna");
         open.addActionListener(this);
         save = new JButton("Spara");
@@ -41,10 +41,10 @@ public class TextEditor implements ActionListener{
         frame.add(topBar,BorderLayout.NORTH);
         frame.add(editorText);
 
-        JScrollPane scroll = new JScrollPane(editorText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane scroll = new JScrollPane(editorText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         frame.add(scroll);
 
-        frame.setSize(600,400);
+        frame.setSize(800,600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -65,6 +65,8 @@ public class TextEditor implements ActionListener{
                         line = br.readLine();
                     }
                     editorText.setText(sb.toString());
+                } catch (FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(null,"Filen hittades inte");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
