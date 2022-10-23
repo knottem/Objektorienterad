@@ -1,8 +1,10 @@
 package Sprint3.Uppgift4;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class TextEditor {
+public class TextEditor implements ActionListener{
 
     JFrame frame = new JFrame("TextEditor");
     JLabel filename = new JLabel("Filnamn:");
@@ -13,10 +15,15 @@ public class TextEditor {
 
     public void editor(){
 
+
         open = new JButton("Öppna");
+        open.addActionListener(this);
         save = new JButton("Spara");
+        save.addActionListener(this);
         print = new JButton("Skriv ut");
+        print.addActionListener(this);
         exit = new JButton("Avsluta");
+        exit.addActionListener(this);
 
         topBar.add(filename);
         topBar.add(filenameText);
@@ -38,6 +45,12 @@ public class TextEditor {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == exit){
+            System.exit(0);
+        }
     }
 
 
