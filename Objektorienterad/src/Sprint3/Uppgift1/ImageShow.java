@@ -5,23 +5,33 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.*;
 
 public class ImageShow extends JFrame implements ActionListener {
 
-    JButton changeImageButton;
-    JLabel imageViewer;
+
     JPanel panel;
-    final ArrayList<String> files = new ArrayList<>();
+    JLabel imageViewer;
+    ArrayList<String> files = new ArrayList<>();
     int index = 0;
-    int counter = 0;
+    int counter = -1;
+    Random rand = new Random();
 
     public void imageShow() throws IOException {
 
-        listFiles(Path.of("Objektorienterad/src/Sprint3/Uppgift1/pics"));
+        listFiles(Path.of("Objektorienterad/src/Sprint3/Uppgift1/pics"), files);
 
-        changeImageButton = new JButton("Change picture");
+        JButton changeImageButton = new JButton("Next picture");
         changeImageButton.addActionListener(this);
+
+        JButton randomButton = new JButton(new AbstractAction("Random Picture") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                index = rand.nextInt(counter+1);
+                imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
+            }
+        });
 
         imageViewer = new JLabel(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
 
@@ -29,6 +39,7 @@ public class ImageShow extends JFrame implements ActionListener {
         panel.setBackground(Color.BLACK);
         panel.add(imageViewer);
         panel.add(changeImageButton);
+        panel.add(randomButton);
         this.add(panel);
 
         setSize(1024,900);
@@ -36,7 +47,7 @@ public class ImageShow extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     public void actionPerformed(ActionEvent e) {
-        if(index<(counter-1)){
+        if(index<counter){
             index++;
         }
         else{
@@ -45,10 +56,10 @@ public class ImageShow extends JFrame implements ActionListener {
         imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
     }
 
-    void listFiles(Path path) throws IOException {
+    void listFiles(Path path,ArrayList<String> list) throws IOException {
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(path)) {
             for (Path entry : stream) {
-                files.add(entry.toString());
+                list.add(entry.toString());
                 counter++;
             }
         }
