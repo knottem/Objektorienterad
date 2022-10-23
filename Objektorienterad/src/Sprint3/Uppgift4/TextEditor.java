@@ -4,20 +4,15 @@ import java.awt.*;
 
 public class TextEditor {
 
-
-
     JFrame frame = new JFrame("TextEditor");
-    JLabel filename;
-    JTextField filenameText;
-    JTextArea editorText;
+    JLabel filename = new JLabel("Filnamn:");
+    JTextField filenameText = new JTextField();
+    JTextArea editorText = new JTextArea(60,70);
     JButton open, save, print, exit;
     JPanel topBar = new JPanel();
-    JPanel textPanel = new JPanel();
 
     public void editor(){
 
-        filename = new JLabel("Filnamn:");
-        filenameText = new JTextField();
         open = new JButton("Öppna");
         save = new JButton("Spara");
         print = new JButton("Skriv ut");
@@ -31,16 +26,11 @@ public class TextEditor {
         topBar.add(exit);
         topBar.setLayout(new GridLayout(1,6));
 
-
-        editorText = new JTextArea(60,70);
-        textPanel.add(editorText);
-
-
         frame.setLayout(new BorderLayout());
         frame.add(topBar,BorderLayout.NORTH);
-        frame.add(textPanel);
+        frame.add(editorText);
 
-        JScrollPane scroll = new JScrollPane(textPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane scroll = new JScrollPane(editorText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         frame.add(scroll);
 
         frame.setSize(800,600);
