@@ -3,6 +3,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.io.*;
+import java.util.Scanner;
 
 public class TextEditor implements ActionListener{
 
@@ -33,6 +36,7 @@ public class TextEditor implements ActionListener{
         topBar.add(exit);
         topBar.setLayout(new GridLayout(1,6));
 
+
         frame.setLayout(new BorderLayout());
         frame.add(topBar,BorderLayout.NORTH);
         frame.add(editorText);
@@ -48,6 +52,44 @@ public class TextEditor implements ActionListener{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == open){
+            Scanner scanOpen = new Scanner(filenameText.getText());
+            if(scanOpen.hasNext()){
+                try(BufferedReader br = new BufferedReader(new FileReader("Objektorienterad/src/Sprint3/Uppgift4/" + scanOpen.nextLine() + ".txt"))) {
+                    StringBuilder sb = new StringBuilder();
+                    String line = br.readLine();
+
+                    while (line != null) {
+                        sb.append(line);
+                        sb.append(System.lineSeparator());
+                        line = br.readLine();
+                    }
+                    editorText.setText(sb.toString());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
+
+        if(e.getSource() == save){
+            Scanner scanSave = new Scanner(filenameText.getText());
+            if(scanSave.hasNext()){
+                try(BufferedWriter bw = new BufferedWriter(new FileWriter("Objektorienterad/src/Sprint3/Uppgift4/" + scanSave.nextLine() + ".txt"))){
+                    String text = editorText.getText();
+                    bw.write(text);
+                }catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
+
+        if(e.getSource() == print){
+                try {
+                    editorText.print();
+                } catch (PrinterException ex) {
+                    throw new RuntimeException(ex);
+            }
+        }
         if(e.getSource() == exit){
             System.exit(0);
         }
