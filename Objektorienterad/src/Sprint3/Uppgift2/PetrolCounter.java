@@ -2,8 +2,7 @@ package Sprint3.Uppgift2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.Scanner;
 
 public class PetrolCounter implements ActionListener {
@@ -17,9 +16,9 @@ public class PetrolCounter implements ActionListener {
 
     public void petrol(){
 
-    meterSetting = new JTextField(25);
-    meterSettingLastYear = new JTextField(25);
-    gasUsedLastYear = new JTextField(25);
+    meterSetting = new JTextField(20);
+    meterSettingLastYear = new JTextField(20);
+    gasUsedLastYear = new JTextField(20);
     meterSetting.addActionListener(this);
     meterSettingLastYear.addActionListener(this);
     gasUsedLastYear.addActionListener(this);
@@ -31,6 +30,7 @@ public class PetrolCounter implements ActionListener {
     label3 = new JLabel(" ");
     label4 = new JLabel(" ");
     label5 = new JLabel(" ");
+
 
     questions.add(label);
     questions.add(label1);
@@ -54,6 +54,7 @@ public class PetrolCounter implements ActionListener {
     frame.add("South", results);
 
     frame.pack();
+    //frame.setSize(300,150);
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);
