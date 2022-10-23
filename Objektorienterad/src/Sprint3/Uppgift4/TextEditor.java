@@ -9,7 +9,7 @@ public class TextEditor implements ActionListener{
     JFrame frame = new JFrame("TextEditor");
     JLabel filename = new JLabel("Filnamn:");
     JTextField filenameText = new JTextField();
-    JTextArea editorText = new JTextArea(60,70);
+    JTextArea editorText = new JTextArea(60,50);
     JButton open, save, print, exit;
     JPanel topBar = new JPanel();
 
@@ -40,7 +40,7 @@ public class TextEditor implements ActionListener{
         JScrollPane scroll = new JScrollPane(editorText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         frame.add(scroll);
 
-        frame.setSize(800,600);
+        frame.setSize(600,400);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
