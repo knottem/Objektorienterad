@@ -17,9 +17,9 @@ public class PetrolCounter implements ActionListener {
 
     public void petrol(){
 
-    meterSetting = new JTextField(30);
-    meterSettingLastYear = new JTextField(30);
-    gasUsedLastYear = new JTextField(30);
+    meterSetting = new JTextField(25);
+    meterSettingLastYear = new JTextField(25);
+    gasUsedLastYear = new JTextField(25);
     meterSetting.addActionListener(this);
     meterSettingLastYear.addActionListener(this);
     gasUsedLastYear.addActionListener(this);
@@ -62,13 +62,13 @@ public class PetrolCounter implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource() == meterSetting || e.getSource() == meterSettingLastYear || e.getSource() == gasUsedLastYear){
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == meterSetting || e.getSource() == meterSettingLastYear || e.getSource() == gasUsedLastYear) {
             Scanner scanMeterSetting = new Scanner(meterSetting.getText());
             Scanner scanMeterSettingLastYear = new Scanner(meterSettingLastYear.getText());
             Scanner scanGasUsedLastYear = new Scanner(gasUsedLastYear.getText());
-
-            if(scanGasUsedLastYear.hasNextDouble() && scanMeterSetting.hasNextDouble() && scanMeterSettingLastYear.hasNextDouble()){
+            if (scanMeterSetting.hasNextDouble() && scanMeterSettingLastYear.hasNextDouble() && scanGasUsedLastYear.hasNextDouble()) {
                 double answeredMeterSetting = scanMeterSetting.nextDouble();
                 double answeredMeterSettingLastYear = scanMeterSettingLastYear.nextDouble();
                 double answeredGasUsedLastYear = scanGasUsedLastYear.nextDouble();
@@ -79,11 +79,8 @@ public class PetrolCounter implements ActionListener {
                 label3.setText(printDistanceDriven(distanceDrivenYear));
                 label4.setText(printGas(answeredGasUsedLastYear));
                 label5.setText(printCPM(CPM));
-
             }
-
         }
-
     }
 
 
