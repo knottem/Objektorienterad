@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class PetrolCounter implements ActionListener {
 
-    JFrame frame;
+    JFrame frame = new JFrame("PetrolCalculator");
     JTextField meterSetting,meterSettingLastYear,gasUsedLastYear;
     JLabel label, label1, label2, label3,label4,label5;
     JPanel questions = new JPanel();
@@ -48,7 +48,6 @@ public class PetrolCounter implements ActionListener {
     results.add(label5);
     results.setLayout(new GridLayout(1,3));
 
-    frame = new JFrame("PetrolCalculator");
     frame.setLayout(new BorderLayout());
     frame.add("West", questions);
     frame.add("East", answers);
@@ -82,7 +81,6 @@ public class PetrolCounter implements ActionListener {
             }
         }
     }
-
 
     public double calculateDistanceDrivenDuringLastYear(double meterSetting, double meterSettingLastYear){
         return meterSetting - meterSettingLastYear;
