@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
 
-public class ImageShow extends JFrame implements ActionListener {
+public class ImageShow implements ActionListener {
 
 
-    JPanel panel;
+    JPanel buttons = new JPanel();
+    JFrame frame = new JFrame("ImageViewer");
     JLabel imageViewer;
+    JButton changeImageButton, randomButton;
     ArrayList<String> files = new ArrayList<>();
     int index = 0;
     int counter = -1;
@@ -22,41 +24,43 @@ public class ImageShow extends JFrame implements ActionListener {
 
         listFiles(Path.of("Objektorienterad/src/Sprint3/Uppgift1/pics"), files);
 
-        JButton changeImageButton = new JButton("Next picture");
+        changeImageButton = new JButton("Next picture");
         changeImageButton.addActionListener(this);
 
-        JButton randomButton = new JButton(new AbstractAction("Random Picture") {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                index = rand.nextInt(counter+1);
-                imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
-            }
-        });
+        randomButton = new JButton("Random Picture");
+        randomButton.addActionListener(this);
 
-        imageViewer = new JLabel(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
+        imageViewer = new JLabel(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024, 768, Image.SCALE_DEFAULT)));
 
-        panel = new JPanel();
-        panel.setBackground(Color.BLACK);
-        panel.add(imageViewer);
-        panel.add(changeImageButton);
-        panel.add(randomButton);
-        this.add(panel);
+        buttons.add(changeImageButton);
+        buttons.add(randomButton);
+        buttons.setLayout(new GridLayout(1,2));
 
-        setSize(1024,900);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.add("North", imageViewer);
+        frame.add("South", buttons);
+
+        frame.pack();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     public void actionPerformed(ActionEvent e) {
-        if(index<counter){
-            index++;
+        if(e.getSource() == changeImageButton) {
+            if (index < counter) {
+                index++;
+            } else {
+                index = 0;
+            }
+            imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024, 768, Image.SCALE_DEFAULT)));
         }
-        else{
-            index = 0;
+        if(e.getSource() == randomButton){
+            index = rand.nextInt(counter+1);
+            imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
         }
-        imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
     }
 
-    void listFiles(Path path,ArrayList<String> list) throws IOException {
+    public void listFiles(Path path,ArrayList<String> list) throws IOException {
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(path)) {
             for (Path entry : stream) {
                 list.add(entry.toString());
@@ -64,7 +68,6 @@ public class ImageShow extends JFrame implements ActionListener {
             }
         }
     }
-
 
     public static void main(String[] args) throws IOException {
         ImageShow imageShow = new ImageShow();
