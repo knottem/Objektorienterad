@@ -66,7 +66,7 @@ public class TextEditor implements ActionListener{
                     }
                     editorText.setText(sb.toString());
                 } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null,"Filen hittades inte");
+                    JOptionPane.showMessageDialog(frame,"Filen hittades inte");
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -87,6 +87,7 @@ public class TextEditor implements ActionListener{
 
         if(e.getSource() == print){
                 try {
+                    editorText.print();
                     editorText.print();
                 } catch (PrinterException ex) {
                     throw new RuntimeException(ex);
