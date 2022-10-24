@@ -7,7 +7,7 @@ import java.awt.print.PrinterException;
 import java.io.*;
 import java.util.Scanner;
 
-public class TextEditor implements ActionListener{
+public class TextEditorB implements ActionListener{
 
     JFrame frame = new JFrame("TextEditor");
     JLabel filename = new JLabel("Filnamn:");
@@ -100,7 +100,7 @@ public class TextEditor implements ActionListener{
 
 
     public static void main(String[] args) {
-        TextEditor textEditor = new TextEditor();
+        TextEditorB textEditor = new TextEditorB();
         textEditor.editor();
     }
 }
