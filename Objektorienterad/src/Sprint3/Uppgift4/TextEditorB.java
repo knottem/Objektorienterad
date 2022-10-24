@@ -11,7 +11,7 @@ public class TextEditorB implements ActionListener{
 
     JFrame frame = new JFrame("TextEditor");
     JLabel filename = new JLabel("Filnamn:");
-    //JTextField filenameText = new JTextField();
+    JTextField filenameText = new JTextField();
     JComboBox<String> jComboBox = new JComboBox<>();
     JTextArea editorText = new JTextArea(60,50);
     JButton open, save, print, exit;
@@ -38,7 +38,7 @@ public class TextEditorB implements ActionListener{
 
 
         topBar.add(filename);
-        //topBar.add(filenameText);
+        topBar.add(filenameText);
         topBar.add(jComboBox);
         topBar.add(open);
         topBar.add(save);
@@ -63,7 +63,13 @@ public class TextEditorB implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == open){
-            Scanner scanOpen = new Scanner(jComboBox.getItemAt(jComboBox.getSelectedIndex()));
+            Scanner scanOpen;
+            if(filenameText.getText().isEmpty()) {
+                scanOpen = new Scanner(jComboBox.getItemAt(jComboBox.getSelectedIndex()));
+            }
+            else{
+                scanOpen = new Scanner(filenameText.getText());
+            }
             if(scanOpen.hasNext()){
                 try(BufferedReader br = new BufferedReader(new FileReader("Objektorienterad/src/Sprint3/Uppgift4/" + scanOpen.nextLine() + ".txt"))) {
                     StringBuilder sb = new StringBuilder();
@@ -84,7 +90,13 @@ public class TextEditorB implements ActionListener{
         }
 
         if(e.getSource() == save){
-            Scanner scanSave = new Scanner(jComboBox.getItemAt(jComboBox.getSelectedIndex()));
+            Scanner scanSave;
+            if(filenameText.getText().isEmpty()) {
+                scanSave = new Scanner(jComboBox.getItemAt(jComboBox.getSelectedIndex()));
+            }
+            else{
+                scanSave = new Scanner(filenameText.getText());
+            }
             if(scanSave.hasNext()){
                 try(BufferedWriter bw = new BufferedWriter(new FileWriter("Objektorienterad/src/Sprint3/Uppgift4/" + scanSave.nextLine() + ".txt"))){
                     String text = editorText.getText();
@@ -129,7 +141,13 @@ public class TextEditorB implements ActionListener{
         }
     }
     private void rearrangeFileCache(){
-        String value = jComboBox.getItemAt(jComboBox.getSelectedIndex());
+        String value;
+        if(filenameText.getText().isEmpty()) {
+            value = jComboBox.getItemAt(jComboBox.getSelectedIndex());
+        }
+        else{
+            value = filenameText.getText();
+        }
         for (int i = (jComboBox.getSelectedIndex()-1); i>=0; i--){
             files[i+1] = files[i];
         }
