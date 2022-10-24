@@ -11,7 +11,7 @@ public class TextEditorB implements ActionListener{
 
     JFrame frame = new JFrame("TextEditor");
     JLabel filename = new JLabel("Filnamn:");
-    JTextField filenameText = new JTextField();
+    //JTextField filenameText = new JTextField();
     JComboBox<String> jComboBox = new JComboBox<>();
     JTextArea editorText = new JTextArea(60,50);
     JButton open, save, print, exit;
@@ -19,6 +19,8 @@ public class TextEditorB implements ActionListener{
     String[] files = new String[5];
 
     public void editor(){
+
+        readFileCache();
 
         filename.setSize(100,10);
         open = new JButton("Öppna");
@@ -30,25 +32,19 @@ public class TextEditorB implements ActionListener{
         exit = new JButton("Avsluta");
         exit.addActionListener(this);
 
-        files[0] = "test";
-        files[1] = "test2";
-        files[2] = "test3";
-        files[3] = "test4";
-        files[4] = "test5";
-
         jComboBox.setModel(new DefaultComboBoxModel<>(files));
         jComboBox.addActionListener(this);
 
 
 
         topBar.add(filename);
-        topBar.add(filenameText);
+        //topBar.add(filenameText);
         topBar.add(jComboBox);
         topBar.add(open);
         topBar.add(save);
         topBar.add(print);
         topBar.add(exit);
-        topBar.setLayout(new GridLayout(1,7));
+        topBar.setLayout(new GridLayout(1,6));
 
 
         frame.setLayout(new BorderLayout());
@@ -88,7 +84,7 @@ public class TextEditorB implements ActionListener{
         }
 
         if(e.getSource() == save){
-            Scanner scanSave = new Scanner(filenameText.getText());
+            Scanner scanSave = new Scanner(jComboBox.getItemAt(jComboBox.getSelectedIndex()));
             if(scanSave.hasNext()){
                 try(BufferedWriter bw = new BufferedWriter(new FileWriter("Objektorienterad/src/Sprint3/Uppgift4/" + scanSave.nextLine() + ".txt"))){
                     String text = editorText.getText();
@@ -96,12 +92,13 @@ public class TextEditorB implements ActionListener{
                 }catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+                rearrangeFileCache();
+                jComboBox.setModel(new DefaultComboBoxModel<>(files));
             }
         }
 
         if(e.getSource() == print){
                 try {
-                    editorText.print();
                     editorText.print();
                 } catch (PrinterException ex) {
                     throw new RuntimeException(ex);
@@ -113,7 +110,7 @@ public class TextEditorB implements ActionListener{
         }
     }
 
-    void createFileCache(){
+    private void createFileCache(){
         try(BufferedWriter writer = new BufferedWriter(new FileWriter("Objektorienterad/src/Sprint3/Uppgift4/filecache.txt", false))){
             for (String file : files) {
                 writer.write(file + " ");
@@ -121,6 +118,22 @@ public class TextEditorB implements ActionListener{
         }catch (IOException ex){
             throw new RuntimeException(ex);
         }
+    }
+
+    private void readFileCache(){
+        try(Scanner scan = new Scanner(new File("Objektorienterad/src/Sprint3/Uppgift4/filecache.txt"))){
+            String firstLine = scan.nextLine();
+            files = firstLine.split(" ");
+        }catch(FileNotFoundException e){
+            JOptionPane.showMessageDialog(frame,"filecache.txt hittades inte");
+        }
+    }
+    private void rearrangeFileCache(){
+        String value = jComboBox.getItemAt(jComboBox.getSelectedIndex());
+        for (int i = (jComboBox.getSelectedIndex()-1); i>=0; i--){
+            files[i+1] = files[i];
+        }
+        files[0] = value;
     }
 
 
