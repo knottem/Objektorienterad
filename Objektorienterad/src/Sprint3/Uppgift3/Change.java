@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Change extends Tools implements ActionListener{
@@ -30,6 +31,7 @@ public class Change extends Tools implements ActionListener{
 
         payed = new JTextField(20);
         cost = new JTextField(20);
+
         c1000 = new JCheckBox("1000");
         c500 = new JCheckBox("500");
         c200 = new JCheckBox("200");
@@ -40,7 +42,6 @@ public class Change extends Tools implements ActionListener{
         c5 = new JCheckBox("5");
         c2 = new JCheckBox("2");
         c1 = new JCheckBox("1");
-
 
         payed.addActionListener(this);
         cost.addActionListener(this);
@@ -55,13 +56,8 @@ public class Change extends Tools implements ActionListener{
         c2.addActionListener(this);
         c1.addActionListener(this);
 
-
-
-
-
         label = new JLabel("Hur mycket betalade du?");
         label1 = new JLabel("Vad kostade varan?");
-
 
         questions.add(label);
         questions.add(label1);
@@ -152,6 +148,7 @@ public class Change extends Tools implements ActionListener{
 
                 int change = getChange(answeredCost, answeredPayed);
                 printAll(change);
+                Arrays.fill(values, 0);
             }
 
         }
@@ -192,6 +189,7 @@ public class Change extends Tools implements ActionListener{
             }
         }
         label3.setText(output.toString());
+        output.clear();
     }
 
     public String valueText(int valueAmount, int value){
