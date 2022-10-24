@@ -12,9 +12,11 @@ public class TextEditorB implements ActionListener{
     JFrame frame = new JFrame("TextEditor");
     JLabel filename = new JLabel("Filnamn:");
     JTextField filenameText = new JTextField();
+    JComboBox<String> jComboBox = new JComboBox<>();
     JTextArea editorText = new JTextArea(60,50);
     JButton open, save, print, exit;
     JPanel topBar = new JPanel();
+    String[] files = new String[5];
 
     public void editor(){
 
@@ -28,13 +30,25 @@ public class TextEditorB implements ActionListener{
         exit = new JButton("Avsluta");
         exit.addActionListener(this);
 
+        files[0] = "test";
+        files[1] = "test2";
+        files[2] = "test3";
+        files[3] = "test4";
+        files[4] = "test5";
+
+        jComboBox.setModel(new DefaultComboBoxModel<>(files));
+        jComboBox.addActionListener(this);
+
+
+
         topBar.add(filename);
         topBar.add(filenameText);
+        topBar.add(jComboBox);
         topBar.add(open);
         topBar.add(save);
         topBar.add(print);
         topBar.add(exit);
-        topBar.setLayout(new GridLayout(1,6));
+        topBar.setLayout(new GridLayout(1,7));
 
 
         frame.setLayout(new BorderLayout());
@@ -53,7 +67,7 @@ public class TextEditorB implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == open){
-            Scanner scanOpen = new Scanner(filenameText.getText());
+            Scanner scanOpen = new Scanner(jComboBox.getItemAt(jComboBox.getSelectedIndex()));
             if(scanOpen.hasNext()){
                 try(BufferedReader br = new BufferedReader(new FileReader("Objektorienterad/src/Sprint3/Uppgift4/" + scanOpen.nextLine() + ".txt"))) {
                     StringBuilder sb = new StringBuilder();
@@ -94,7 +108,18 @@ public class TextEditorB implements ActionListener{
             }
         }
         if(e.getSource() == exit){
+            createFileCache();
             System.exit(0);
+        }
+    }
+
+    void createFileCache(){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("Objektorienterad/src/Sprint3/Uppgift4/filecache.txt", false))){
+            for (String file : files) {
+                writer.write(file + " ");
+            }
+        }catch (IOException ex){
+            throw new RuntimeException(ex);
         }
     }
 
