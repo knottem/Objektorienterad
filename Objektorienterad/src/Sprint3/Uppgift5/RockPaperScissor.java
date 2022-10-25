@@ -15,10 +15,10 @@ public class RockPaperScissor implements ActionListener {
     JLabel cpuLabel = new JLabel("CPU");
     Player player = new Player("");
     Cpu cpu = new Cpu();
-    JLabel playerScore = new JLabel("Player Score: 0");
+    JLabel playerScore = new JLabel();
     JLabel cpuScore = new JLabel();
 
-    JLabel roundResult = new JLabel("CPU vann denna runda.");
+    JLabel roundResult = new JLabel();
     String playerMove, cpuMove;
 
 
@@ -81,17 +81,20 @@ public class RockPaperScissor implements ActionListener {
         frame.add(bottomBar, BorderLayout.SOUTH);
 
         frame.setSize(width,height);
-        //frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
 
         player.setName(JOptionPane.showInputDialog("Vad är ditt namn?"));
         if(player.getName() != null){
             playerScore.setText(player.getName() +" Score: 0");
         }
+        else{
+            playerScore.setText("Player Score: 0");
+        }
 
-        cpuScore.setText(Cpu.getName() +" Score: 0");
+        cpuScore.setText(cpu.getName() +" Score: 0");
     }
 
     private String cpuMove(){
@@ -184,7 +187,7 @@ public class RockPaperScissor implements ActionListener {
         }
         else{
             cpu.setScore();
-            cpuScore.setText(Cpu.getName() + " Score: " + cpu.getScore());
+            cpuScore.setText(cpu.getName() + " Score: " + cpu.getScore());
         }
     }
 
