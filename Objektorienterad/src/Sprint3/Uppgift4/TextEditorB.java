@@ -144,13 +144,17 @@ public class TextEditorB implements ActionListener{
         String value;
         if(filenameText.getText().isEmpty()) {
             value = jComboBox.getItemAt(jComboBox.getSelectedIndex());
+            for (int i = (jComboBox.getSelectedIndex()-1); i>=0; i--){
+                files[i+1] = files[i];
+            }
         }
         else{
             value = filenameText.getText();
+            for (int i = (files.length-1); i>=0; i--){
+                files[i+1] = files[i];
+            }
         }
-        for (int i = (jComboBox.getSelectedIndex()-1); i>=0; i--){
-            files[i+1] = files[i];
-        }
+
         files[0] = value;
     }
 

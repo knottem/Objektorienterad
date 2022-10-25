@@ -9,8 +9,6 @@ import java.util.Random;
 import javax.swing.*;
 
 public class ImageShow implements ActionListener {
-
-
     JPanel buttons = new JPanel();
     JFrame frame = new JFrame("ImageViewer");
     JLabel imageViewer;
@@ -30,15 +28,15 @@ public class ImageShow implements ActionListener {
         randomButton = new JButton("Random Picture");
         randomButton.addActionListener(this);
 
-        imageViewer = new JLabel(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024, 768, Image.SCALE_DEFAULT)));
+        imageViewer = new JLabel(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(800, 600, Image.SCALE_DEFAULT)));
 
         buttons.add(changeImageButton);
         buttons.add(randomButton);
         buttons.setLayout(new GridLayout(1,2));
 
         frame.setLayout(new BorderLayout());
-        frame.add("North", imageViewer);
-        frame.add("South", buttons);
+        frame.add(imageViewer,BorderLayout.NORTH);
+        frame.add(buttons,BorderLayout.SOUTH);
 
         frame.pack();
         frame.setVisible(true);
@@ -52,11 +50,11 @@ public class ImageShow implements ActionListener {
             } else {
                 index = 0;
             }
-            imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024, 768, Image.SCALE_DEFAULT)));
+            imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(800, 600, Image.SCALE_DEFAULT)));
         }
         if(e.getSource() == randomButton){
             index = rand.nextInt(counter+1);
-            imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(1024,768, Image.SCALE_DEFAULT)));
+            imageViewer.setIcon(new ImageIcon(new ImageIcon(files.get(index)).getImage().getScaledInstance(800,600, Image.SCALE_DEFAULT)));
         }
     }
 
@@ -70,6 +68,11 @@ public class ImageShow implements ActionListener {
     }
 
     public static void main(String[] args) throws IOException {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch(Exception e){
+            e.printStackTrace();
+        }
         ImageShow imageShow = new ImageShow();
         imageShow.imageShow();
     }
