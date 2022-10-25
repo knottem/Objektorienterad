@@ -27,8 +27,6 @@ public class CheckBoxar extends Frame implements ActionListener{
 
         botPanel.add(label);
 
-
-
         frame.setLayout(new GridLayout(2,1));
         frame.add(topPanel);
         frame.add(botPanel);

@@ -20,9 +20,6 @@ public class RockPaperScissor implements ActionListener {
 
     JLabel roundResult = new JLabel();
     String playerMove, cpuMove;
-
-
-
     Toolkit tk = Toolkit.getDefaultToolkit();
     Dimension dimension = tk.getScreenSize();
     int width = (int) (dimension.width-(dimension.width/1.3));
@@ -165,11 +162,11 @@ public class RockPaperScissor implements ActionListener {
                 playerMove = "Sten";
                 playerRock.setBackground(Color.GRAY);
             }
-            if (e.getSource() == playerScissor) {
+            else if (e.getSource() == playerScissor) {
                 playerMove = "Sax";
                 playerScissor.setBackground(Color.GRAY);
             }
-            if (e.getSource() == playerPaper) {
+            else if (e.getSource() == playerPaper) {
                 playerMove = "Påse";
                 playerPaper.setBackground(Color.GRAY);
             }

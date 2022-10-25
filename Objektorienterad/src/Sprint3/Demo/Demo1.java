@@ -1,13 +1,10 @@
 package Sprint3.Demo;
 
-import Tools.Tools;
-
 import javax.swing.*;
 import java.awt.*;
 
-public class Demo1 {
+public class Demo1 extends Frame {
 
-    JFrame frame = new JFrame("Test");
     Toolkit tk = Toolkit.getDefaultToolkit();
     Dimension dimension = tk.getScreenSize();
     int width = dimension.width-(dimension.width/2);
