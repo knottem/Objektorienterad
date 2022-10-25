@@ -13,13 +13,15 @@ public class RockPaperScissor implements ActionListener {
     JPanel middleBar, bottomBar, middleBarLeft,middleBarCenter,middleBarRight;
     JLabel playerLabel = new JLabel("Player");
     JLabel cpuLabel = new JLabel("CPU");
+    Player player = new Player("");
+    Cpu cpu = new Cpu();
     JLabel playerScore = new JLabel("Player Score: 0");
-    JLabel cpuScore = new JLabel("CPU Score: 0");
+    JLabel cpuScore = new JLabel();
 
     JLabel roundResult = new JLabel("CPU vann denna runda.");
     String playerMove, cpuMove;
-    int playerScoreInt = 0;
-    int cpuScoreInt = 0;
+
+
 
     Toolkit tk = Toolkit.getDefaultToolkit();
     Dimension dimension = tk.getScreenSize();
@@ -84,7 +86,12 @@ public class RockPaperScissor implements ActionListener {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        player.setName(JOptionPane.showInputDialog("Vad är ditt namn?"));
+        if(player.getName() != null){
+            playerScore.setText(player.getName() +" Score: 0");
+        }
 
+        cpuScore.setText(Cpu.getName() +" Score: 0");
     }
 
     private String cpuMove(){
@@ -170,14 +177,14 @@ public class RockPaperScissor implements ActionListener {
         }
     }
 
-    private void scoreUpdate(boolean player){
-        if(player){
-            playerScoreInt++;
-            playerScore.setText("Player Score: " + playerScoreInt);
+    private void scoreUpdate(boolean playerTrue){
+        if(playerTrue){
+            player.setScore();
+            playerScore.setText(player.getName() +" Score " + player.getScore());
         }
         else{
-            cpuScoreInt++;
-            cpuScore.setText("CPU Score: " + cpuScoreInt);
+            cpu.setScore();
+            cpuScore.setText(Cpu.getName() + " Score: " + cpu.getScore());
         }
     }
 

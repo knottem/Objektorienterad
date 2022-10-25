@@ -68,11 +68,13 @@ public class ImageShow implements ActionListener {
     }
 
     public static void main(String[] args) throws IOException {
-        try {
+        /*try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch(Exception e){
             e.printStackTrace();
         }
+
+         */
         ImageShow imageShow = new ImageShow();
         imageShow.imageShow();
     }
