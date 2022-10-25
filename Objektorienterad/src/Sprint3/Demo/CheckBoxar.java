@@ -5,9 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CheckBoxar implements ActionListener{
+public class CheckBoxar extends Frame implements ActionListener{
 
-    JFrame frame = new JFrame("Checkbox");
     JPanel topPanel = new JPanel(new GridLayout(3,1));
     JPanel botPanel = new JPanel();
     JLabel label = new JLabel();
@@ -28,15 +27,13 @@ public class CheckBoxar implements ActionListener{
 
         botPanel.add(label);
 
+
+
         frame.setLayout(new GridLayout(2,1));
         frame.add(topPanel);
         frame.add(botPanel);
 
-
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setupFrame();
     }
 
 
