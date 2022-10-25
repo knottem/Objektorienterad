@@ -3,8 +3,7 @@ package Sprint3.Uppgift9;
 public class BMI {
 
     void Program(){
-
-
+        System.out.println("Test");
     }
 
 

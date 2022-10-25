@@ -49,12 +49,11 @@ public class PetrolCounter implements ActionListener {
     results.setLayout(new GridLayout(1,3));
 
     frame.setLayout(new BorderLayout());
-    frame.add("West", questions);
-    frame.add("East", answers);
-    frame.add("South", results);
+    frame.add(questions, BorderLayout.WEST);
+    frame.add(answers, BorderLayout.EAST);
+    frame.add(results, BorderLayout.SOUTH);
 
     frame.pack();
-    //frame.setSize(300,150);
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);
@@ -79,6 +78,7 @@ public class PetrolCounter implements ActionListener {
                 label3.setText(printDistanceDriven(distanceDrivenYear));
                 label4.setText(printGas(answeredGasUsedLastYear));
                 label5.setText(printCPM(CPM));
+                frame.pack();
             }
         }
     }
