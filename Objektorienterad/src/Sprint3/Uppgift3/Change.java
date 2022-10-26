@@ -179,13 +179,13 @@ public class Change extends Tools implements ActionListener{
     }
 
     public void printAll(int change){
-        for (int j : values) {
-            if (!(j == 0)) {
-                int valueAmount = getValueAmount(change, j);
+        for (int i : values) {
+            if (!(i == 0)) {
+                int valueAmount = getValueAmount(change, i);
                 if (valueAmount >= 1) {
-                    output.add(valueText(valueAmount, j));
+                    output.add(valueText(valueAmount, i));
                 }
-                change = removeLargestValue(change, j, valueAmount);
+                change = removeLargestValue(change, i, valueAmount);
             }
         }
         label3.setText(output.toString());
