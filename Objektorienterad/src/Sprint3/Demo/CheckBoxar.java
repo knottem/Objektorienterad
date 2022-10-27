@@ -60,12 +60,12 @@ public class CheckBoxar extends Frame implements ActionListener{
         if(red.isSelected() && blue.isSelected() && !(yellow.isSelected())){
             label.setText("Lila");
             label.setForeground(Color.BLACK);
-            botPanel.setBackground(new Color(116, 5, 143));
+            botPanel.setBackground(new Color(128, 0, 128));
         }
         if(red.isSelected() && blue.isSelected() && yellow.isSelected()){
             label.setText("Brun");
             label.setForeground(Color.WHITE);
-            botPanel.setBackground(new Color(56, 46, 38));
+            botPanel.setBackground(new Color(98, 42, 15));
         }
         if(!(red.isSelected()) && !(blue.isSelected()) && !(yellow.isSelected())){
             label.setText("Ingen färg vald");
