@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.io.*;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class TextEditorB implements ActionListener{
@@ -49,6 +50,7 @@ public class TextEditorB implements ActionListener{
 
         frame.setLayout(new BorderLayout());
         frame.add(topBar,BorderLayout.NORTH);
+        editorText.setFont(new Font("Comic Sans",Font.PLAIN, 30));
         frame.add(editorText);
 
         JScrollPane scroll = new JScrollPane(editorText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -142,19 +144,22 @@ public class TextEditorB implements ActionListener{
     }
     private void rearrangeFileCache(){
         String value;
-        if(filenameText.getText().isEmpty()) {
+            if(filenameText.getText().isEmpty()) {
             value = jComboBox.getItemAt(jComboBox.getSelectedIndex());
-            for (int i = (jComboBox.getSelectedIndex()-1); i>=0; i--){
-                files[i+1] = files[i];
+                if(!(Objects.equals(value, files[0]))) {
+                    for (int i = (jComboBox.getSelectedIndex() - 1); i >= 0; i--) {
+                        files[i + 1] = files[i];
+                    }
+                }
             }
-        }
         else{
             value = filenameText.getText();
-            for (int i = (files.length-1); i>=0; i--){
-                files[i+1] = files[i];
+                if(!(Objects.equals(value, files[0]))) {
+                    for (int i = (files.length - 2); i >= 0; i--) {
+                        files[i + 1] = files[i];
+                    }
+                }
             }
-        }
-
         files[0] = value;
     }
 

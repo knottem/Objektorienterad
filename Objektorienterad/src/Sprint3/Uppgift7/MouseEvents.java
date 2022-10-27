@@ -7,17 +7,14 @@ public class MouseEvents{
 
     JFrame frame = new JFrame("Mouse");
     JPanel panel = new JPanel();
-    JButton button = new JButton("Button");
-    JButton button2 = new JButton("Test Button");
-    mouseAdapter mouseAdapter = new mouseAdapter(button);
-    mouseAdapter mouseAdapter2 = new mouseAdapter(button2);
+    Button b = new Button(new JButton("Button"),1);
+    Button b2 = new Button(new JButton("Button2"),2);
 
     void Program(){
 
-        button.addMouseListener(mouseAdapter.musTest);
-        button2.addMouseListener(mouseAdapter2.musTest2);
-        panel.add(button);
-        panel.add(button2);
+        panel.add(b.getButton());
+        panel.add(b2.getButton());
+
         panel.setLayout(new GridLayout(1,2));
 
         frame.add(panel);
