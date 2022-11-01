@@ -7,12 +7,12 @@ public class Uppgift13 {
 
     static boolean rerun = true;
     static int testTime = 1;
-    static int totalTime = 10000;
+
 
     public static void main(String[] args) throws InterruptedException {
 
         ArrayList<Medicine> medicines = new ArrayList<>();
-        String[] mediciner = {"Alvedon","Paracetamol", "Oxycontin"};
+        String[] mediciner = {"Alvedon", "Paracetamol", "Oxycontin"};
 
         while(rerun) {
             String name = (String) JOptionPane.showInputDialog(null, "Vilken medicin ska du ta?",
@@ -44,7 +44,7 @@ public class Uppgift13 {
         }
 
 
-        Thread.sleep(totalTime);
+        Thread.sleep(20000);
         for (Medicine medicine : medicines) {
             medicine.interrupt();
         }
