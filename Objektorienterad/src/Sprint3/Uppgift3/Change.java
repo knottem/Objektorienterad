@@ -17,6 +17,7 @@ public class Change extends Tools implements ActionListener{
     JFrame frame = new JFrame("Change");
     JTextField payed,cost;
     JLabel label, label1, label2, label3;
+
     JCheckBox c1000,c500,c200,c100,c50,c20,c10,c5,c2,c1;
     JPanel checkboxes = new JPanel();
     JPanel questions = new JPanel();
@@ -42,19 +43,6 @@ public class Change extends Tools implements ActionListener{
         c5 = new JCheckBox("5");
         c2 = new JCheckBox("2");
         c1 = new JCheckBox("1");
-
-        payed.addActionListener(this);
-        cost.addActionListener(this);
-        c1000.addActionListener(this);
-        c500.addActionListener(this);
-        c200.addActionListener(this);
-        c100.addActionListener(this);
-        c500.addActionListener(this);
-        c20.addActionListener(this);
-        c10.addActionListener(this);
-        c5.addActionListener(this);
-        c2.addActionListener(this);
-        c1.addActionListener(this);
 
         label = new JLabel("Hur mycket betalade du?");
         label1 = new JLabel("Vad kostade varan?");
@@ -86,6 +74,14 @@ public class Change extends Tools implements ActionListener{
         checkboxes.add(c2);
         checkboxes.add(c1);
         checkboxes.setLayout(new GridLayout(5,2));
+
+        for(Component c : checkboxes.getComponents()){
+            if(c instanceof JCheckBox)
+                ((JCheckBox)c).addActionListener(this);
+        }
+
+        payed.addActionListener(this);
+        cost.addActionListener(this);
 
 
 

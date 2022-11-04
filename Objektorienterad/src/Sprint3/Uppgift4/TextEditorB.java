@@ -5,18 +5,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.io.*;
+import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 
 public class TextEditorB implements ActionListener{
 
     JFrame frame = new JFrame("TextEditor");
     JLabel filename = new JLabel("Filnamn:");
+    JLabel FontText = new JLabel();
     JTextField filenameText = new JTextField();
     JComboBox<String> jComboBox = new JComboBox<>();
     JTextArea editorText = new JTextArea(60,50);
-    JButton open, save, print, exit;
+    JButton open, save, print, exit, randomFont, defaultFont;
     JPanel topBar = new JPanel();
+    JPanel botBar = new JPanel();
     String[] files = new String[5];
+
+    Font defFont = editorText.getFont();
 
     public void editor(){
 
@@ -24,18 +30,28 @@ public class TextEditorB implements ActionListener{
 
         filename.setSize(100,10);
         open = new JButton("Öppna");
-        open.addActionListener(this);
         save = new JButton("Spara");
-        save.addActionListener(this);
         print = new JButton("Skriv ut");
-        print.addActionListener(this);
         exit = new JButton("Avsluta");
-        exit.addActionListener(this);
+
+        open.addActionListener(this);
+        save.addActionListener(this);
+
+        print.addActionListener(e -> {
+            try {
+                editorText.print();
+            } catch (PrinterException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        exit.addActionListener(e -> {
+                createFileCache();
+                System.exit(0);
+        });
 
         jComboBox.setModel(new DefaultComboBoxModel<>(files));
         jComboBox.addActionListener(this);
-
-
 
         topBar.add(filename);
         topBar.add(filenameText);
@@ -46,10 +62,25 @@ public class TextEditorB implements ActionListener{
         topBar.add(exit);
         topBar.setLayout(new GridLayout(1,6));
 
+        randomFont = new JButton("Random Font");
+        randomFont.addActionListener(this);
+        defaultFont= new JButton("Default Font");
+        defaultFont.addActionListener(e -> {
+            editorText.setFont(defFont);
+            FontText.setText(fontString());
+        });
+
+        botBar.add(FontText);
+        botBar.add(randomFont);
+        botBar.add(defaultFont);
+        botBar.setLayout(new GridLayout(1,3));
+
 
         frame.setLayout(new BorderLayout());
         frame.add(topBar,BorderLayout.NORTH);
+        editorText.setFont(new Font("Comic Sans",Font.PLAIN, 30));
         frame.add(editorText);
+        frame.add(botBar, BorderLayout.SOUTH);
 
         JScrollPane scroll = new JScrollPane(editorText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         frame.add(scroll);
@@ -72,15 +103,7 @@ public class TextEditorB implements ActionListener{
             }
             if(scanOpen.hasNext()){
                 try(BufferedReader br = new BufferedReader(new FileReader("Objektorienterad/src/Sprint3/Uppgift4/" + scanOpen.nextLine() + ".txt"))) {
-                    StringBuilder sb = new StringBuilder();
-                    String line = br.readLine();
-
-                    while (line != null) {
-                        sb.append(line);
-                        sb.append(System.lineSeparator());
-                        line = br.readLine();
-                    }
-                    editorText.setText(sb.toString());
+                    editorText.read(br, null);
                 } catch (FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(frame,"Filen hittades inte");
                 } catch (IOException ex) {
@@ -99,8 +122,7 @@ public class TextEditorB implements ActionListener{
             }
             if(scanSave.hasNext()){
                 try(BufferedWriter bw = new BufferedWriter(new FileWriter("Objektorienterad/src/Sprint3/Uppgift4/" + scanSave.nextLine() + ".txt"))){
-                    String text = editorText.getText();
-                    bw.write(text);
+                    editorText.write(bw);
                 }catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -108,17 +130,8 @@ public class TextEditorB implements ActionListener{
                 jComboBox.setModel(new DefaultComboBoxModel<>(files));
             }
         }
-
-        if(e.getSource() == print){
-                try {
-                    editorText.print();
-                } catch (PrinterException ex) {
-                    throw new RuntimeException(ex);
-            }
-        }
-        if(e.getSource() == exit){
-            createFileCache();
-            System.exit(0);
+        if(e.getSource() == randomFont){
+            setRandomFont();
         }
     }
 
@@ -140,24 +153,49 @@ public class TextEditorB implements ActionListener{
             JOptionPane.showMessageDialog(frame,"filecache.txt hittades inte");
         }
     }
-    private void rearrangeFileCache(){
-        String value;
-        if(filenameText.getText().isEmpty()) {
-            value = jComboBox.getItemAt(jComboBox.getSelectedIndex());
-            for (int i = (jComboBox.getSelectedIndex()-1); i>=0; i--){
-                files[i+1] = files[i];
-            }
+    private void setRandomFont(){
+        Random random = new Random();
+        int i = random.nextInt(3);
+        int font = random.nextInt(100);
+        if(i==0){
+            editorText.setFont(new Font("Arial Black", Font.PLAIN, font));
+            FontText.setText(fontString());
+        }
+        else if(i==1){
+            editorText.setFont(new Font("Arial", Font.PLAIN, font));
+            FontText.setText(fontString());
         }
         else{
-            value = filenameText.getText();
-            for (int i = (files.length-1); i>=0; i--){
-                files[i+1] = files[i];
-            }
+            editorText.setFont(new Font("Times New Roman", Font.PLAIN, font));
+            FontText.setText(fontString());
         }
 
+    }
+
+    private void rearrangeFileCache(){
+        String value;
+            if(filenameText.getText().isEmpty()) {
+            value = jComboBox.getItemAt(jComboBox.getSelectedIndex());
+                if(!(Objects.equals(value, files[0]))) {
+                    for (int i = (jComboBox.getSelectedIndex() - 1); i >= 0; i--) {
+                        files[i + 1] = files[i];
+                    }
+                }
+            }
+        else{
+            value = filenameText.getText();
+                if(!(Objects.equals(value, files[0]))) {
+                    for (int i = (files.length - 2); i >= 0; i--) {
+                        files[i + 1] = files[i];
+                    }
+                }
+            }
         files[0] = value;
     }
 
+    private String fontString(){
+        return "Font: " + editorText.getFont().getFontName() + " Size: " + editorText.getFont().getSize();
+    }
 
     public static void main(String[] args) {
         TextEditorB textEditor = new TextEditorB();
