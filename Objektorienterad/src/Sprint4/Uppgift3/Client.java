@@ -114,7 +114,7 @@ public class Client {
     public static void main(String[] args) throws IOException {
 
         String username = JOptionPane.showInputDialog("What's your username?");
-        Socket socket = new Socket("localhost",1234);
+        Socket socket = new Socket("localhost",12345);
         Client client = new Client(socket,username);
         client.setupWindow(username);
         client.listenForMessage();
