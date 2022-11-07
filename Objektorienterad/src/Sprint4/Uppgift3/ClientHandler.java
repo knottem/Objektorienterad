@@ -2,6 +2,7 @@ package Sprint4.Uppgift3;
 
 import java.io.*;
 import java.net.Socket;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class ClientHandler implements Runnable{
@@ -33,7 +34,17 @@ public class ClientHandler implements Runnable{
         while(socket.isConnected()){
             try{
                 messageFromClient = bufferedReader.readLine();
-                broadcastMessage(messageFromClient);
+                if(messageFromClient.startsWith("/nick")){
+                    String[] messageSplit = messageFromClient.split(" ", 2);
+                    if(messageSplit.length == 2){
+                        broadcastMessage(LocalTime.now().withNano(0) + ":" + clientUsername + " renamed themselves to " + messageSplit[1]);
+                        clientUsername = messageSplit[1];
+                    }
+                }
+                else{
+                    broadcastMessage(LocalTime.now().withNano(0) + ":" + clientUsername +": "+ messageFromClient);
+                }
+
             }catch (IOException e){
                 closeEverything(socket, bufferedReader, bufferedWriter);
                 break;

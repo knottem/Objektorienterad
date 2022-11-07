@@ -47,10 +47,23 @@ public class Client {
                     }
                 });
                 if(messageToSend != null){
-                    bufferedWriter.write(username + ": " + messageToSend);
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
-                    messageToSend = null;
+                    if(messageToSend.startsWith("/nick")){
+                        String[] nameChange = messageToSend.split(" ", 2);
+                        if(nameChange.length == 2){
+                            username = nameChange[1];
+                            bufferedWriter.write(messageToSend);
+                            bufferedWriter.newLine();
+                            bufferedWriter.flush();
+                            frame.setTitle("Chat: " + username);
+                            messageToSend = null;
+                        }
+                    }
+                    else {
+                        bufferedWriter.write(messageToSend);
+                        bufferedWriter.newLine();
+                        bufferedWriter.flush();
+                        messageToSend = null;
+                    }
                 }
             }
         }catch (IOException e){
