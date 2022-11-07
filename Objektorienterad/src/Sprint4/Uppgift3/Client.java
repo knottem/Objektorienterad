@@ -58,6 +58,18 @@ public class Client {
                             messageToSend = null;
                         }
                     }
+                    else if(messageToSend.startsWith("/quit") || button.getModel().isPressed()){
+                        if(messageToSend.startsWith("/quit")) {
+                            bufferedWriter.write(messageToSend);
+                        }
+                        else{
+                            bufferedWriter.write("/quit");
+                        }
+                        bufferedWriter.newLine();
+                        bufferedWriter.flush();
+                        closeEverything(socket,bufferedReader,bufferedWriter);
+                        System.exit(0);
+                    }
                     else {
                         bufferedWriter.write(messageToSend);
                         bufferedWriter.newLine();
@@ -108,7 +120,6 @@ public class Client {
         frame.setTitle("Chat: " + username);
         frame.setLayout(new BorderLayout());
         topPanel.add(button);
-        button.addActionListener(e -> System.exit(0));
         frame.add(topPanel,BorderLayout.NORTH);
         frame.add(jTextArea);
         JScrollPane scrollBar = new JScrollPane(jTextArea,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -122,6 +133,8 @@ public class Client {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.pack();
+
+        button.addActionListener(e -> System.exit(0));
 
 
     }

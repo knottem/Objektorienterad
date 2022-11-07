@@ -38,8 +38,14 @@ public class ClientHandler implements Runnable{
                     String[] messageSplit = messageFromClient.split(" ", 2);
                     if(messageSplit.length == 2){
                         broadcastMessage(LocalTime.now().withNano(0) + ":" + clientUsername + " renamed themselves to " + messageSplit[1]);
+                        System.out.println(clientUsername + " renamed themselves to " + messageSplit[1]);
                         clientUsername = messageSplit[1];
                     }
+                }
+                else if(messageFromClient.startsWith("/quit")){
+                    System.out.println(clientUsername + " has left the chat!");
+                    closeEverything(socket,bufferedReader,bufferedWriter);
+                    break;
                 }
                 else{
                     broadcastMessage(LocalTime.now().withNano(0) + ":" + clientUsername +": "+ messageFromClient);
