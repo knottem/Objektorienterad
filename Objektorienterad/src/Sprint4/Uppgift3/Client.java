@@ -98,6 +98,8 @@ public class Client {
         button.addActionListener(e -> System.exit(0));
         frame.add(topPanel,BorderLayout.NORTH);
         frame.add(jTextArea);
+        JScrollPane scrollBar = new JScrollPane(jTextArea,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        frame.add(scrollBar);
         bottomPanel.add(jTextField);
         bottomPanel.setLayout(new GridLayout(1,1));
         frame.add(bottomPanel, BorderLayout.SOUTH);
