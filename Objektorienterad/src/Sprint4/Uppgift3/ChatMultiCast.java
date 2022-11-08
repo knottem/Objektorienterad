@@ -10,9 +10,10 @@ import java.time.LocalTime;
 
 public class ChatMultiCast {
 
-    String ip = "234.235.236.237";
-    String networkInterface = "eth5";
-    int port = 23456;
+    private final String ip = "234.235.236.237";
+    private final String networkInterface = "eth5";
+    private final int port = 23456;
+    private String username;
 
     JFrame frame = new JFrame("Chat");
     JPanel topPanel = new JPanel();
@@ -22,7 +23,6 @@ public class ChatMultiCast {
     JButton button = new JButton("Koppla ner");
 
     MulticastSocket socket;
-    String username;
 
     private void startServices() {
         try {
@@ -32,6 +32,7 @@ public class ChatMultiCast {
 
             socket.joinGroup(group, netIf);
             new Thread(receiveMessages).start();
+            sendMessages(" har joinat chatten.");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -40,7 +41,7 @@ public class ChatMultiCast {
 
     private void sendMessages(String message) {
         try {
-            byte[] buffer = (message).getBytes();
+            byte[] buffer = (LocalTime.now().withNano(0) +  ": " + username + message).getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(ip), 23456);
             socket.send(packet);
             jTextField.setText("");
@@ -52,12 +53,12 @@ public class ChatMultiCast {
     private void getText(String message){
         if(message.startsWith("/nick")){
             String[] messageSplit = message.split(" ", 2);
-            sendMessages(LocalTime.now().withNano(0) +": " + username + " changed nick to " + messageSplit[1]);
+            sendMessages(" changed nick to " + messageSplit[1]);
             username = messageSplit[1];
             frame.setTitle("Chat: " + username);
         }
         else {
-            sendMessages(LocalTime.now().withNano(0) +": " + username + ": " + message);
+            sendMessages(": " + message);
         }
     }
 
@@ -101,7 +102,13 @@ public class ChatMultiCast {
         frame.pack();
         frame.setVisible(true);
 
-        button.addActionListener(e -> System.exit(0));
+        jTextArea.append("Du har joinat chatten.\n");
+
+        button.addActionListener(e -> {
+            sendMessages(" lämnade chatten.");
+            System.exit(0);
+        });
+
 
         jTextField.addKeyListener(new KeyAdapter() {
             @Override
