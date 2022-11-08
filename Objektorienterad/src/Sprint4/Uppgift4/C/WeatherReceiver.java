@@ -1,4 +1,4 @@
-package Sprint4.Uppgift4.b;
+package Sprint4.Uppgift4.C;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -21,15 +21,15 @@ public class WeatherReceiver {
         frame.setVisible(true);
     }
 
-
-    private void server() throws IOException {
-        try {
-            byte[] data = new byte[256];
+    @SuppressWarnings("InfiniteLoopStatement")
+    private void server() {
+        byte[] data = new byte[256];
+        try (MulticastSocket socket = new MulticastSocket(23456)){
             while (true) {
-                MulticastSocket socket = new MulticastSocket();
-                InetAddress iadr = InetAddress.getByName("224.0.0.1");
-                InetSocketAddress group = new InetSocketAddress(iadr, 23456);
-                NetworkInterface netIf = NetworkInterface.getByName("wlan1");
+                String ip = "234.235.236.237";
+                InetSocketAddress group = new InetSocketAddress(InetAddress.getByName(ip), 23456);
+                NetworkInterface netIf = NetworkInterface.getByName("eth5");
+
                 socket.joinGroup(group, netIf);
 
                 DatagramPacket packet = new DatagramPacket(data, data.length);

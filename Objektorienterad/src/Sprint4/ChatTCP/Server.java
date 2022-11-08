@@ -1,4 +1,4 @@
-package Sprint4.Uppgift3;
+package Sprint4.ChatTCP;
 
 import java.io.IOException;
 import java.net.ServerSocket;

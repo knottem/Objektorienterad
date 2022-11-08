@@ -1,4 +1,4 @@
-package Sprint4.Uppgift3;
+package Sprint4.ChatTCP;
 
 import javax.swing.*;
 import java.awt.*;

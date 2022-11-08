@@ -1,4 +1,4 @@
-package Sprint4.Uppgift4.b;
+package Sprint4.Uppgift4.C;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,24 +16,29 @@ public class Sensor {
     JTextField tempText = new JTextField();
     JButton button = new JButton("Skicka");
 
+
     private void send() {
 
             button.addActionListener(e -> {
                 String city = cityText.getText();
                 String temp = tempText.getText();
-                try (DatagramSocket datagramSocket = new DatagramSocket()) {
-                    String message = city + " " + temp;
-                    byte[] data = message.getBytes();
-                    DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName("224.0.0.1"), 23456);
-                    try {
-                        datagramSocket.send(packet);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                } catch (SocketException | UnknownHostException ex) {
+                String message = city + " " + temp;
+                try {
+                    broadcast(message);
+                } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
             });
+    }
+
+    public static void broadcast(String broadcastMessage) throws IOException {
+        String ip = "234.235.236.237";
+        MulticastSocket socket = new MulticastSocket();
+
+        byte[] buffer = broadcastMessage.getBytes();
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length,InetAddress.getByName(ip),23456);
+        socket.send(packet);
+        socket.close();
     }
 
 
@@ -57,7 +62,7 @@ public class Sensor {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setResizable(true);
-        frame.pack();
+        frame.setSize(300,150);
     }
 
 
