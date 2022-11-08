@@ -18,12 +18,11 @@ public class Sensor implements ActionListener{
     JTextField tempText = new JTextField();
     JButton button = new JButton("Skicka");
 
-    public static void broadcast(String broadcastMessage) throws IOException {
-        String ip = "234.235.236.237";
-        MulticastSocket socket = new MulticastSocket();
 
-        byte[] buffer = broadcastMessage.getBytes();
-        DatagramPacket packet = new DatagramPacket(buffer, buffer.length,InetAddress.getByName(ip),23456);
+
+    public static void broadcast(String broadcastMessage) throws IOException {
+        MulticastSocket socket = new MulticastSocket();
+        DatagramPacket packet = new DatagramPacket(broadcastMessage.getBytes(), broadcastMessage.length(), InetAddress.getByName("234.235.236.237"), 23456);
         socket.send(packet);
         socket.close();
     }
@@ -61,16 +60,12 @@ public class Sensor implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == button) {
-            String city = cityText.getText();
-            String temp = tempText.getText();
-            String message = city + " " + temp;
+        if(e.getSource()==button){
             try {
-                broadcast(message);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                broadcast(cityText.getText() + " " + tempText.getText());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
         }
     }
-
 }
