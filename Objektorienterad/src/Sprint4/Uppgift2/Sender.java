@@ -9,6 +9,7 @@ public class Sender {
     public void sendQuote() throws IOException, InterruptedException {
 
         DatagramSocket datagramSocket = new DatagramSocket();
+        //DatagramSocket receiveSocket = new DatagramSocket(45679);
         String[] quotes = {"Solen är gul", "Havet är blått", "Det är mörkt på natten"};
         String adress = "localhost";
         while (true) {
@@ -17,6 +18,15 @@ public class Sender {
                 byte[] data = message.getBytes();
                 DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName(adress), 45678);
                 datagramSocket.send(packet);
+
+                //TODO receive kvittens
+               /* packet = new DatagramPacket(data, data.length);
+                receiveSocket.receive(packet);
+                String messaged = new String(packet.getData(), 0, packet.getLength());
+                System.out.println(messaged + " " + LocalTime.now().withNano(0));
+
+                */
+
                 Thread.sleep(5000);
             }
         }

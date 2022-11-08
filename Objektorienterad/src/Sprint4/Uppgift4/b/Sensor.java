@@ -1,4 +1,4 @@
-package Sprint4.Uppgift4;
+package Sprint4.Uppgift4.b;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +24,7 @@ public class Sensor {
                 try (DatagramSocket datagramSocket = new DatagramSocket()) {
                     String message = city + " " + temp;
                     byte[] data = message.getBytes();
-                    DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName("2"), 23456);
+                    DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName("224.0.0.1"), 23456);
                     try {
                         datagramSocket.send(packet);
                     } catch (IOException ex) {
