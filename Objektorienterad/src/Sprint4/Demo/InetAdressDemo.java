@@ -1,0 +1,35 @@
+package Sprint4.Demo;
+
+import java.net.*;
+
+class InetAddressDemo {
+
+    public static void main(String args[]) throws UnknownHostException {
+        //Mitt eget IP
+        InetAddress Address = InetAddress.getLocalHost();
+        //System.out.println(Address);
+        //System.out.println(Address.getHostAddress());
+        //System.out.println(Address.getHostName());
+        //System.out.println(Address.isMulticastAddress());
+
+        //Loopback, pekar alltid på den egna datorn
+        //InetAddress loopback = InetAddress.getLoopbackAddress();
+        //System.out.println(loopback);
+
+        //Address = InetAddress.getByName("192.168.68.54");
+        //System.out.println(Address);
+
+        //IP till dn.se
+        //Address = InetAddress.getByName("dn.se");
+        //System.out.println(Address);
+
+        //Ett datornamn kan ha flera IP
+        InetAddress[] SW = InetAddress.getAllByName("www.hm.se");
+
+        for (InetAddress inetAddress : SW) {
+            System.out.println(inetAddress.getHostAddress() + " " + inetAddress.getHostName());
+        }
+
+
+    }
+}

@@ -47,6 +47,13 @@ public class ClientHandler implements Runnable{
                     closeEverything(socket,bufferedReader,bufferedWriter);
                     break;
                 }
+                else if(messageFromClient.startsWith("/msg")){
+                    String[] messageSplit = messageFromClient.split(" ", 2);
+                    if(messageSplit.length == 2){
+                        broadcastMessage(LocalTime.now().withNano(0) + ":" + clientUsername + ": " + messageSplit[1]);
+                    }
+                }
+
                 else{
                     broadcastMessage(LocalTime.now().withNano(0) + ":" + clientUsername +": "+ messageFromClient);
                 }
