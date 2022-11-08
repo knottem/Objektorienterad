@@ -4,13 +4,14 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class WeatherReceiver {
 
     static ArrayList<String> city = new ArrayList<>();
     static ArrayList<String> temp = new ArrayList<>();
     JFrame frame = new JFrame("Väder");
-    JTextArea textArea = new JTextArea(20,20);
+    JTextArea textArea = new JTextArea(20,25);
 
     private void setupWindow(){
         frame.add(textArea);
@@ -25,32 +26,38 @@ public class WeatherReceiver {
     private void server() {
         byte[] data = new byte[256];
         try (MulticastSocket socket = new MulticastSocket(23456)){
+            String ip = "234.235.236.237";
+            InetSocketAddress group = new InetSocketAddress(InetAddress.getByName(ip), 23456);
+            NetworkInterface netIf = NetworkInterface.getByName("eth5");
+
+            socket.joinGroup(group, netIf);
+
             while (true) {
-                String ip = "234.235.236.237";
-                InetSocketAddress group = new InetSocketAddress(InetAddress.getByName(ip), 23456);
-                NetworkInterface netIf = NetworkInterface.getByName("eth5");
-
-                socket.joinGroup(group, netIf);
-
                 DatagramPacket packet = new DatagramPacket(data, data.length);
                 socket.receive(packet);
                 String message = new String(packet.getData(), 0, packet.getLength());
                 String[] messageSplit = message.split(" ", 2);
 
                 if(messageSplit.length == 2) {
-                    city.add(messageSplit[0]);
-                    temp.add(messageSplit[1]);
-                    System.out.println("Temperatur för staden " + messageSplit[0] + " : " + messageSplit[1]);
-                    textArea.append("Temperatur för staden " + messageSplit[0] + " : " + messageSplit[1] + "\n");
+                    System.out.println("Temperatur för staden " + messageSplit[0].toLowerCase() + " : " + messageSplit[1]);
                 }
-                else{
-                    System.out.println(message);
-                }
-
-                if (city.size() == 3) {
+                boolean newCity = true;
+                if(messageSplit.length == 2) {
                     for (int i = 0; i < city.size(); i++) {
-                        System.out.println(city.get(i) + " " + temp.get(i) + " Grader");
+                        if (Objects.equals(city.get(i), messageSplit[0].toLowerCase())) {
+                            temp.set(i,messageSplit[1]);
+                            newCity = false;
+                        }
                     }
+                }
+                if(newCity){
+                    city.add(messageSplit[0].toLowerCase());
+                    temp.add(messageSplit[1]);
+                }
+                textArea.setText("");
+                for (int i = 0; i <city.size(); i++) {
+
+                    textArea.append("Temperatur för staden: " + city.get(i) + " är " + temp.get(i) + "\n");
                 }
             }
         } catch (IOException e) {

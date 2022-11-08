@@ -2,10 +2,12 @@ package Sprint4.Uppgift4.C;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.*;
 
-public class Sensor {
+public class Sensor implements ActionListener{
 
     JFrame frame = new JFrame("Sensor Program;");
     JPanel topPanel = new JPanel();
@@ -16,21 +18,6 @@ public class Sensor {
     JTextField tempText = new JTextField();
     JButton button = new JButton("Skicka");
 
-
-    private void send() {
-
-            button.addActionListener(e -> {
-                String city = cityText.getText();
-                String temp = tempText.getText();
-                String message = city + " " + temp;
-                try {
-                    broadcast(message);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
-    }
-
     public static void broadcast(String broadcastMessage) throws IOException {
         String ip = "234.235.236.237";
         MulticastSocket socket = new MulticastSocket();
@@ -40,8 +27,6 @@ public class Sensor {
         socket.send(packet);
         socket.close();
     }
-
-
 
     public void setUpWindow(){
 
@@ -57,6 +42,8 @@ public class Sensor {
         frame.add(topPanel, 0);
         frame.add(bottomPanel,1);
         frame.add(button,2);
+        button.addActionListener(this);
+
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,6 +57,20 @@ public class Sensor {
     public static void main(String[] args) throws IOException {
         Sensor sensors = new Sensor();
         sensors.setUpWindow();
-        sensors.send();
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == button) {
+            String city = cityText.getText();
+            String temp = tempText.getText();
+            String message = city + " " + temp;
+            try {
+                broadcast(message);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+    }
+
 }

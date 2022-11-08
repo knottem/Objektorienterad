@@ -2,11 +2,11 @@ package Sprint4.Demo;
 
 import java.net.*;
 
-class InetAddressDemo {
+class InetAdressDemo {
 
-    public static void main(String args[]) throws UnknownHostException {
+    public static void main(String[] args) throws UnknownHostException {
         //Mitt eget IP
-        InetAddress Address = InetAddress.getLocalHost();
+        //InetAddress Address = InetAddress.getLocalHost();
         //System.out.println(Address);
         //System.out.println(Address.getHostAddress());
         //System.out.println(Address.getHostName());
