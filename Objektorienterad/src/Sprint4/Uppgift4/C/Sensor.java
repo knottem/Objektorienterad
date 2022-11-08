@@ -18,8 +18,6 @@ public class Sensor implements ActionListener{
     JTextField tempText = new JTextField();
     JButton button = new JButton("Skicka");
 
-
-
     public static void broadcast(String broadcastMessage) throws IOException {
         MulticastSocket socket = new MulticastSocket();
         DatagramPacket packet = new DatagramPacket(broadcastMessage.getBytes(), broadcastMessage.length(), InetAddress.getByName("234.235.236.237"), 23456);
