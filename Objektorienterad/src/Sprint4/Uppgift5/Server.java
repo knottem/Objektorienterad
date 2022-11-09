@@ -5,13 +5,14 @@ import java.net.*;
 
 public class Server {
 
-    private static String ip = "localhost";
     private static final int receivePort = 23456;
     private static final int sendPort = 23457;
     byte[] data = new byte[256];
 
     static Databas databas = new Databas();
     boolean found;
+
+    static InetAddress ip;
 
 
     @SuppressWarnings("InfiniteLoopStatement")
@@ -21,7 +22,9 @@ public class Server {
                 found = false;
                 DatagramPacket packet = new DatagramPacket(data, data.length);
                 socket.receive(packet);
-                ip = socket.getRemoteSocketAddress().toString();
+
+                ip = packet.getAddress();
+
                 String message = new String(packet.getData(), 0, packet.getLength());
 
                 for (int i = 0; i < databas.database.size(); i++) {
@@ -41,10 +44,10 @@ public class Server {
     }
     public static void broadcast(String broadcastMessage) throws IOException {
         DatagramSocket socket = new DatagramSocket();
-        DatagramPacket packet = new DatagramPacket(broadcastMessage.getBytes(), broadcastMessage.length(), InetAddress.getByName(ip), sendPort);
+        DatagramPacket packet = new DatagramPacket(broadcastMessage.getBytes(), broadcastMessage.length(), ip, sendPort);
         socket.send(packet);
         socket.close();
-        System.out.println("Message sent");
+        System.out.println("Message sent to " + ip);
     }
 
     public static void main(String[] args) {
