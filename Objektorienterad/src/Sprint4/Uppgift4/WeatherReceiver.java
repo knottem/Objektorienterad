@@ -21,8 +21,7 @@ public class WeatherReceiver {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-
-
+    @SuppressWarnings("InfiniteLoopStatement")
     private void server() throws IOException {
         try (DatagramSocket socket = new DatagramSocket(23456)) {
             byte[] data = new byte[256];

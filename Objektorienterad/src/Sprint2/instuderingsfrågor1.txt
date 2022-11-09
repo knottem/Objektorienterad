@@ -11,3 +11,5 @@ som ska testas i testet?
 
 
 
+Multicast är när man vill skicka samma paket till flera mottagare samtidigt.
+

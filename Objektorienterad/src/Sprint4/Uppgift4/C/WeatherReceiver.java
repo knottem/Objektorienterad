@@ -54,9 +54,10 @@ public class WeatherReceiver {
                     city.add(messageSplit[0].toLowerCase());
                     temp.add(messageSplit[1]);
                 }
+
+                //Rewrites all text to textArea
                 textArea.setText("");
                 for (int i = 0; i <city.size(); i++) {
-
                     textArea.append("Temperatur för staden: " + city.get(i) + " är " + temp.get(i) + "\n");
                 }
             }
