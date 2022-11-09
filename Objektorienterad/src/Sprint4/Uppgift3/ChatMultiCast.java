@@ -122,7 +122,6 @@ public class ChatMultiCast {
 
     }
 
-
     public static void main(String[] args) {
         ChatMultiCast chatMultiCast = new ChatMultiCast();
         String name = JOptionPane.showInputDialog("Ange ditt namn");
