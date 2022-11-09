@@ -2,6 +2,7 @@ package Sprint4.Uppgift5;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.Arrays;
 
 public class Server {
 
@@ -18,25 +19,24 @@ public class Server {
     @SuppressWarnings("InfiniteLoopStatement")
     private void server() {
         try (DatagramSocket socket = new DatagramSocket(receivePort)){
-            while (true) {
-                found = false;
-                DatagramPacket packet = new DatagramPacket(data, data.length);
-                socket.receive(packet);
+                while (true) {
+                    found = false;
+                    DatagramPacket packet = new DatagramPacket(data, data.length);
+                    socket.receive(packet);
 
-                ip = packet.getAddress();
+                    ip = packet.getAddress();
 
-                String message = new String(packet.getData(), 0, packet.getLength());
+                    String message = new String(packet.getData(), 0, packet.getLength());
 
-                for (int i = 0; i < databas.database.size(); i++) {
-                    if(message.equalsIgnoreCase(databas.database.get(i).getName())){
-                        broadcast(databas.database.get(i).toString());
-                        found = true;
+                    for (int i = 0; i < databas.database.size(); i++) {
+                        if (message.equalsIgnoreCase(databas.database.get(i).getName())) {
+                            broadcast(databas.database.get(i).toString());
+                            found = true;
+                        }
                     }
-                }
-                if(!(found)){
-                    broadcast("Personen hittades inte i telefonboken");
-                }
-
+                    if (!(found)) {
+                        broadcast("Personen hittades inte i telefonboken");
+                    }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -47,7 +47,7 @@ public class Server {
         DatagramPacket packet = new DatagramPacket(broadcastMessage.getBytes(), broadcastMessage.length(), ip, sendPort);
         socket.send(packet);
         socket.close();
-        System.out.println("Message sent to " + ip);
+        System.out.println("Message sent to: " + ip.getHostName());
     }
 
     public static void main(String[] args) {

@@ -15,5 +15,4 @@ public class Databas {
         database.add(new Kompis("Leo", "test5@test.com", 123456789,7300012450L));
         database.add(new Kompis("Tess", "test6@test.com", 123456789,7200012450L));
     }
-
 }
