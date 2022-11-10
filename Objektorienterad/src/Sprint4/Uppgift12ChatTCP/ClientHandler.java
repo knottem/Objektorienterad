@@ -1,4 +1,4 @@
-package Sprint4.ChatTCP;
+package Sprint4.Uppgift12ChatTCP;
 
 import java.io.*;
 import java.net.Socket;
