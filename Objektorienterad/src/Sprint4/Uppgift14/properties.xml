@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Testing testing</comment>
+    <entry key="fontName">SansSerif</entry>
+    <entry key="Title">My Title</entry>
+    <entry key="buttonSize">50</entry>
+    <entry key="fontSize">20</entry>
+    <entry key="message">Hejsan hoppsan hur mår du</entry>
+    <entry key="fontStyle">PLAIN</entry>
+</properties>
