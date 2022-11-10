@@ -1,11 +1,13 @@
-package Sprint3.Uppgift4;
+package Sprint4.Uppgift4.C;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.*;
 
-public class Sensor {
+public class Sensor implements ActionListener{
 
     JFrame frame = new JFrame("Sensor Program;");
     JPanel topPanel = new JPanel();
@@ -16,27 +18,12 @@ public class Sensor {
     JTextField tempText = new JTextField();
     JButton button = new JButton("Skicka");
 
-    private void send() {
-
-            button.addActionListener(e -> {
-                String city = cityText.getText();
-                String temp = tempText.getText();
-                try (DatagramSocket datagramSocket = new DatagramSocket()) {
-                    String message = city + " " + temp;
-                    byte[] data = message.getBytes();
-                    DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName("2"), 23456);
-                    try {
-                        datagramSocket.send(packet);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                } catch (SocketException | UnknownHostException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
+    public static void broadcast(String broadcastMessage) throws IOException {
+        MulticastSocket socket = new MulticastSocket();
+        DatagramPacket packet = new DatagramPacket(broadcastMessage.getBytes(), broadcastMessage.length(), InetAddress.getByName("234.235.236.237"), 23456);
+        socket.send(packet);
+        socket.close();
     }
-
-
 
     public void setUpWindow(){
 
@@ -52,12 +39,14 @@ public class Sensor {
         frame.add(topPanel, 0);
         frame.add(bottomPanel,1);
         frame.add(button,2);
+        button.addActionListener(this);
+
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setResizable(true);
-        frame.pack();
+        frame.setSize(300,150);
     }
 
 
@@ -65,6 +54,16 @@ public class Sensor {
     public static void main(String[] args) throws IOException {
         Sensor sensors = new Sensor();
         sensors.setUpWindow();
-        sensors.send();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==button){
+            try {
+                broadcast(cityText.getText() + " " + tempText.getText());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
     }
 }

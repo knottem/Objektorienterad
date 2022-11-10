@@ -1,4 +1,4 @@
-package Sprint3.Uppgift4;
+package Sprint4.Uppgift4;
 
 import javax.swing.*;
 import java.io.IOException;

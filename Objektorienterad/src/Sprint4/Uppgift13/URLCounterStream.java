@@ -11,8 +11,7 @@ public class URLCounterStream {
     public void Test() throws IOException {
         URL test = new URL("https://github.com/dwyl/english-words/blob/master/words.txt?raw=true");
 
-        new BufferedReader(new InputStreamReader(test.openStream())).lines().collect(
-                Collectors.groupingBy(String::length)).forEach((k, v) -> System.out.println(k + " " + v.size()));
+        new BufferedReader(new InputStreamReader(test.openStream())).lines().collect(Collectors.groupingBy(String::length)).forEach((k, v) -> System.out.println(k + " " + v.size()));
     }
 
     public static void main(String[] args) throws IOException {
