@@ -11,7 +11,7 @@ import java.time.LocalTime;
 public class ChatMultiCast {
 
     private final String ip = "234.235.236.237";
-    private final String networkInterface = "eth5";
+    private final String networkInterface = "wlan1";
     private final int port = 23456;
     private String username;
 
@@ -101,8 +101,6 @@ public class ChatMultiCast {
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
-
-        jTextArea.append("Du har joinat chatten.\n");
 
         button.addActionListener(e -> {
             sendMessages(" lämnade chatten.");

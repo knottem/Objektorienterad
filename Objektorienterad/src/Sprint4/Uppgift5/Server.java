@@ -2,7 +2,6 @@ package Sprint4.Uppgift5;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.Arrays;
 
 public class Server {
 
@@ -13,12 +12,13 @@ public class Server {
     static Databas databas = new Databas();
     boolean found;
 
-    static InetAddress ip;
-
+    private static InetAddress ip;
+    private static DatagramSocket socket;
 
     @SuppressWarnings("InfiniteLoopStatement")
     private void server() {
-        try (DatagramSocket socket = new DatagramSocket(receivePort)){
+        try {
+            socket = new DatagramSocket(receivePort);
                 while (true) {
                     found = false;
                     DatagramPacket packet = new DatagramPacket(data, data.length);
@@ -43,10 +43,8 @@ public class Server {
         }
     }
     public static void broadcast(String broadcastMessage) throws IOException {
-        DatagramSocket socket = new DatagramSocket();
         DatagramPacket packet = new DatagramPacket(broadcastMessage.getBytes(), broadcastMessage.length(), ip, sendPort);
         socket.send(packet);
-        socket.close();
         System.out.println("Message sent to: " + ip.getHostName());
     }
 
