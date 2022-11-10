@@ -1,6 +1,6 @@
 package Sprint4.Uppgift15;
 
-public interface QueueInterface<T> {
+public interface IQueue<T> {
     void put(T t);
     T take();
     int size();

@@ -10,6 +10,12 @@ public class Main {
         test.put("hej3");
         //test.printAll();
 
+        Queue<Integer> test3 = new Queue<>();
+        test3.put(20);
+        test3.put(10);
+        test3.printAll();
+
+
 
 
         NumberQueue<Number> test2 = new NumberQueue<>();

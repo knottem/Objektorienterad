@@ -2,9 +2,11 @@ package Sprint4.Uppgift15;
 
 import java.util.ArrayList;
 
-public class NumberQueue<T extends Number> implements QueueInterface<T> {
+public class NumberQueue<T extends Number> implements IQueue<T> {
 
     private final ArrayList<T> queue = new ArrayList<>();
+
+    public NumberQueue(){}
 
     @Override
     public void put(T t) {
@@ -36,4 +38,5 @@ public class NumberQueue<T extends Number> implements QueueInterface<T> {
         }
         return sum;
     }
+
 }

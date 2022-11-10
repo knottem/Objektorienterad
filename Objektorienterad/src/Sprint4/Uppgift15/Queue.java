@@ -2,12 +2,11 @@ package Sprint4.Uppgift15;
 
 import java.util.ArrayList;
 
-public class Queue<T> implements QueueInterface<T>{
+public class Queue<T> implements IQueue<T> {
 
     ArrayList<T> queue = new ArrayList<>();
 
-    public Queue() {
-    }
+    public Queue() {}
 
     public void put(T t) {
         queue.add(t);

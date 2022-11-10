@@ -5,6 +5,7 @@ import java.net.*;
 public class URLDemo {
     public static void main(String[] args) throws Exception {
 
+        /*
         URL aURL = new URL("http://www.example.com:80/docs/books/tutorial/index.html?name=networking#DOWNLOADING");
 
         System.out.println("protocol = " + aURL.getProtocol());
@@ -19,6 +20,10 @@ public class URLDemo {
         if (aURL.getProtocol().equals("http")) {
             System.out.println("Detta är en http server");
         }
+
+         */
+        InetAddress address = InetAddress.getByName((new URL("http://www.example.com").getHost()));
+        System.out.println("IP = "+ address.getHostAddress());
     }
 
 }
