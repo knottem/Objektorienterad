@@ -36,11 +36,11 @@ public class WeatherReceiver {
                 DatagramPacket packet = new DatagramPacket(data, data.length);
                 socket.receive(packet);
                 String message = new String(packet.getData(), 0, packet.getLength());
-                String[] messageSplit = message.split(" ", 2);
+                String[] messageSplit = message.split(" ");
 
-                if(messageSplit.length == 2) {
-                    System.out.println("Temperatur för staden " + messageSplit[0].toLowerCase() + " : " + messageSplit[1]);
-                }
+
+                System.out.println("Temperatur för staden " + messageSplit[0].toLowerCase() + " : " + messageSplit[1]);
+
                 boolean newCity = true;
                 if(messageSplit.length == 2) {
                     for (int i = 0; i < city.size(); i++) {
@@ -58,7 +58,7 @@ public class WeatherReceiver {
                 //Rewrites all text to textArea
                 textArea.setText("");
                 for (int i = 0; i <city.size(); i++) {
-                    textArea.append("Temperatur för staden: " + city.get(i) + " är " + temp.get(i) + "\n");
+                    textArea.append("Temperatur för staden: " + city.get(i) + " är " + temp.get(i) + " \n");
                 }
             }
         } catch (IOException e) {

@@ -24,7 +24,7 @@ public class Sensor {
                 try (DatagramSocket datagramSocket = new DatagramSocket()) {
                     String message = city + " " + temp;
                     byte[] data = message.getBytes();
-                    DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName("2"), 23456);
+                    DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName("localhost"), 23456);
                     try {
                         datagramSocket.send(packet);
                     } catch (IOException ex) {
