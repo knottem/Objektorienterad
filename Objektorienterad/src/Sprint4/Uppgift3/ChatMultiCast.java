@@ -40,42 +40,42 @@ public class ChatMultiCast {
     }
 
     private void sendMessages(String message) {
-        try {
-            byte[] buffer = (LocalTime.now().withNano(0) +  ": " + username + message).getBytes();
-            socket.send(new DatagramPacket(buffer, buffer.length, InetAddress.getByName(ip), port));
-            jTextField.setText("");
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+        if(!quit) {
+            try {
+                byte[] buffer = (LocalTime.now().withNano(0) + ": " + username + message).getBytes();
+                socket.send(new DatagramPacket(buffer, buffer.length, InetAddress.getByName(ip), port));
+                jTextField.setText("");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
     private void getText(String message){
-        if(message.startsWith("/nick")){
-            String[] messageSplit = message.split(" ", 2);
-            sendMessages(" changed nick to " + messageSplit[1]);
-            username = messageSplit[1];
-            frame.setTitle("Chat: " + username);
-        }
-        else {
-            sendMessages(": " + message);
+        if(!quit) {
+            if (message.startsWith("/nick")) {
+                String[] messageSplit = message.split(" ", 2);
+                sendMessages(" changed nick to " + messageSplit[1]);
+                username = messageSplit[1];
+                frame.setTitle("Chat: " + username);
+            } else {
+                sendMessages(": " + message);
+            }
         }
     }
 
     private final Runnable receiveMessages = () -> {
             byte[] data = new byte[256];
-            while (true) {
-                DatagramPacket packet = new DatagramPacket(data, data.length);
-                try {
-                    socket.receive(packet);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                String message = new String(packet.getData(), 0, packet.getLength());
-                jTextArea.append(message + "\n");
-                if(quit){
-                    break;
-                }
+        do {
+            DatagramPacket packet = new DatagramPacket(data, data.length);
+            try {
+                socket.receive(packet);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
+            String message = new String(packet.getData(), 0, packet.getLength());
+            jTextArea.append(message + "\n");
+        } while (!quit);
     };
 
     public void setupWindow(String username){
@@ -103,7 +103,6 @@ public class ChatMultiCast {
         button.addActionListener(e -> {
             sendMessages(" lämnade chatten.");
             quit = true;
-
         });
 
 
