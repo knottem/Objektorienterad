@@ -10,8 +10,9 @@ import java.time.LocalTime;
 
 public class ChatMultiCast {
 
-    private final String ip = "234.235.236.237";
-    private final int port = 23456;
+    private String ip = "234.235.236.237";
+    private String net = "wlan1";
+    private int port = 23456;
     private String username;
 
     JFrame frame = new JFrame("Chat");
@@ -29,7 +30,7 @@ public class ChatMultiCast {
         try {
             socket = new MulticastSocket(port);
             InetSocketAddress group = new InetSocketAddress(InetAddress.getByName(ip), port);
-            NetworkInterface netIf = NetworkInterface.getByName("wlan1");
+            NetworkInterface netIf = NetworkInterface.getByName(net);
             socket.joinGroup(group, netIf);
             new Thread(receiveMessages).start();
         } catch (IOException e) {
@@ -37,6 +38,20 @@ public class ChatMultiCast {
         }
     }
 
+    private final Runnable receiveMessages = () -> {
+        byte[] data = new byte[256];
+        String message;
+        while(!quit) {
+            DatagramPacket packet = new DatagramPacket(data, data.length);
+            try {
+                socket.receive(packet);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            message = new String(packet.getData(), 0, packet.getLength());
+            jTextArea.append(message + "\n");
+        }
+    };
 
     private void sendMessages(String message) {
         if(!quit) {
@@ -51,46 +66,87 @@ public class ChatMultiCast {
     }
 
     private void getText(String message){
+        if(quit){
+            if(message.startsWith("/ip")){
+                swapIp();
+            }
+            else if(message.startsWith("/nick")){
+                String[] messageSplit = message.split(" ", 2);
+                if(messageSplit.length == 2){
+                    username = messageSplit[1];
+                    frame.setTitle("Chat: " + username);
+                }
+                else{
+                    jTextArea.append("Can't just use /nick needs a username also\n");
+                }
+            }
+        }
         if(!quit) {
             if (message.startsWith("/nick")) {
                 String[] messageSplit = message.split(" ", 2);
-                sendMessages(" changed nick to " + messageSplit[1]);
-                username = messageSplit[1];
-                frame.setTitle("Chat: " + username);
-            } else {
+                if(messageSplit.length == 2) {
+                    sendMessages(" changed nick to " + messageSplit[1]);
+                    username = messageSplit[1];
+                    frame.setTitle("Chat: " + username);
+                }
+                else {
+                    jTextArea.append("Can't just use /nick needs a username also\n");
+                }
+            } else if (message.startsWith("/font")) {
+                String[] messageSplit = message.split(" ", 2);
+                try{
+                    jTextArea.setFont(new Font(messageSplit[1],Font.PLAIN,12));
+                    jTextField.setText("");
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (message.startsWith("/help")) {
+                jTextArea.append("HELP\n/nick to change your nickname\n/font to change font\n");
+                jTextField.setText("");
+            } else if(!message.isEmpty()) {
                 sendMessages(": " + message);
             }
         }
     }
 
-    private final Runnable receiveMessages = () -> {
-            byte[] data = new byte[256];
-        while(!quit) {
-            DatagramPacket packet = new DatagramPacket(data, data.length);
-            try {
-                socket.receive(packet);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            String message = new String(packet.getData(), 0, packet.getLength());
-            jTextArea.append(message + "\n");
+    private void swapIp(){
+        if(quit){
+            ip = JOptionPane.showInputDialog("Vilket ip vill du använda?");
+            net = JOptionPane.showInputDialog("Vilket net interface? t.ex. wlan1");
+            port = Integer.parseInt(JOptionPane.showInputDialog("Vilken port?"));
         }
-    };
+    }
 
+    private void buttonFunction(){
+        if(!quit){
+            sendMessages(" lämnade chatten.");
+            quit = true;
+            socket.close();
+            button.setText("Connect");
+        }
+        else {
+            quit = false;
+            startServices();
+            sendMessages(" joined chat");
+            button.setText("Disconnect");
+        }
+    }
     public void setupWindow(String username){
 
         this.username = username;
 
-        frame.setLayout(new BorderLayout());
         topPanel.add(button);
-        frame.add(topPanel,BorderLayout.NORTH);
-        frame.add(jTextArea);
+
         JScrollPane scrollPane = new JScrollPane(jTextArea,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        frame.add(scrollPane);
+        jTextArea.setEditable(false);
         bottomPanel.add(jTextField);
         bottomPanel.setLayout(new GridLayout(1,1));
+
+        frame.setLayout(new BorderLayout());
+        frame.add(scrollPane);
         frame.add(bottomPanel, BorderLayout.SOUTH);
-        jTextArea.setEditable(false);
+        frame.add(topPanel,BorderLayout.NORTH);
+        frame.add(jTextArea);
 
         frame.setTitle("Chat: " + username);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,23 +155,7 @@ public class ChatMultiCast {
         frame.pack();
         frame.setVisible(true);
 
-        button.addActionListener(e -> {
-            if(!quit){
-                sendMessages(" lämnade chatten.");
-                quit = true;
-                socket.close();
-                button.setText("Connect");
-            }
-            else {
-                startServices();
-                quit = false;
-                sendMessages(" joined chat");
-                button.setText("Disconnect");
-            }
-
-        });
-
-
+        button.addActionListener(e -> buttonFunction());
         jTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -124,14 +164,11 @@ public class ChatMultiCast {
                 }
             }
         });
-
-
     }
 
     public static void main(String[] args) {
         ChatMultiCast chatMultiCast = new ChatMultiCast();
         String name = JOptionPane.showInputDialog("Ange ditt namn");
         chatMultiCast.setupWindow(name);
-        chatMultiCast.startServices();
     }
 }
