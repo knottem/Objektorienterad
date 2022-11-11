@@ -19,9 +19,9 @@ public class ChatMultiCast {
     JPanel bottomPanel = new JPanel();
     JTextArea jTextArea = new JTextArea(20, 40);
     JTextField jTextField = new JTextField();
-    JButton button = new JButton("Koppla ner");
+    JButton button = new JButton("Connect");
 
-    boolean quit = false;
+    boolean quit = true;
 
     MulticastSocket socket;
 
@@ -32,12 +32,11 @@ public class ChatMultiCast {
             NetworkInterface netIf = NetworkInterface.getByName("wlan1");
             socket.joinGroup(group, netIf);
             new Thread(receiveMessages).start();
-            sendMessages(" har joinat chatten.");
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     private void sendMessages(String message) {
         if(!quit) {
@@ -66,7 +65,7 @@ public class ChatMultiCast {
 
     private final Runnable receiveMessages = () -> {
             byte[] data = new byte[256];
-        do {
+        while(!quit) {
             DatagramPacket packet = new DatagramPacket(data, data.length);
             try {
                 socket.receive(packet);
@@ -75,7 +74,7 @@ public class ChatMultiCast {
             }
             String message = new String(packet.getData(), 0, packet.getLength());
             jTextArea.append(message + "\n");
-        } while (!quit);
+        }
     };
 
     public void setupWindow(String username){
@@ -101,8 +100,19 @@ public class ChatMultiCast {
         frame.setVisible(true);
 
         button.addActionListener(e -> {
-            sendMessages(" lämnade chatten.");
-            quit = true;
+            if(!quit){
+                sendMessages(" lämnade chatten.");
+                quit = true;
+                socket.close();
+                button.setText("Connect");
+            }
+            else {
+                startServices();
+                quit = false;
+                sendMessages(" joined chat");
+                button.setText("Disconnect");
+            }
+
         });
 
 
