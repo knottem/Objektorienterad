@@ -20,7 +20,7 @@ public class ClientHandlerV2 implements Runnable{
             this.printWriter = new PrintWriter(socket.getOutputStream(), true);
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             closeEverything(socket, bufferedReader,printWriter);
         }
     }
