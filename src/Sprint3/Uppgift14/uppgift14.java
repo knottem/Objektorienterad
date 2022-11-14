@@ -1,6 +1,5 @@
 package Sprint3.Uppgift14;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class uppgift14 {

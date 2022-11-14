@@ -3,9 +3,6 @@ package Sprint4.Demo;
 
 import java.awt.Font;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -48,6 +45,7 @@ public class PropertiesDemo extends JFrame {
 
     public static void main(String[] args){
         PropertiesDemo ö = new PropertiesDemo();
+        ö.pack();
     }
 
 }
