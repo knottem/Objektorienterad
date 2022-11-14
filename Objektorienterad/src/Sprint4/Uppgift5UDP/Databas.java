@@ -1,4 +1,4 @@
-package Sprint4.Uppgift5;
+package Sprint4.Uppgift5UDP;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ public class Databas {
 
     ArrayList<Kompis> database = new ArrayList<>();
 
-    Databas(){
+    public Databas(){
         database.add(new Kompis("Erik", "test@test.com", 123456789,9900012450L));
         database.add(new Kompis("George", "test1@test.com", 123456789,8900012450L));
         database.add(new Kompis("Test1", "test2@test.com", 123456789,7900012450L));

@@ -1,4 +1,4 @@
-package Sprint4.Uppgift5;
+package Sprint4.Uppgift5UDP;
 
 import java.io.IOException;
 import java.net.*;
