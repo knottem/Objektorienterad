@@ -2,6 +2,7 @@ package Sprint4.Uppgift5TCP;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ClientHandler implements Runnable{
 
@@ -9,7 +10,7 @@ public class ClientHandler implements Runnable{
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
 
-    static Databas databas = new Databas();
+    private static final ArrayList<Kompis> databas = new Databas().getDatabase();
     boolean found;
 
     public ClientHandler(Socket socket){
@@ -31,9 +32,9 @@ public class ClientHandler implements Runnable{
             try{
                 messageFromClient = bufferedReader.readLine();
 
-                for (int i = 0; i < databas.database.size(); i++) {
-                    if (messageFromClient.equalsIgnoreCase(databas.database.get(i).getName())) {
-                        broadcastMessage(databas.database.get(i).toString());
+                for (Kompis database : databas) {
+                    if (messageFromClient.equalsIgnoreCase(database.getName())) {
+                        broadcastMessage(database.toString());
                         found = true;
                     }
                 }

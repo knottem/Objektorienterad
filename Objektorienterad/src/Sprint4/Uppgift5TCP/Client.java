@@ -29,9 +29,10 @@ public class Client {
                 Scanner scan = new Scanner(System.in);
                 System.out.println("\nVilken person vill du söka efter:");
                 String input = scan.nextLine();
-                if (input.equals("exit")) {
+                if (input.contains("exit")) {
                     break;
-                } else {
+                }
+                else {
                     broadcast(input);
                     wait = true;
                 }
@@ -80,6 +81,8 @@ public class Client {
         }catch (IOException e){
             e.printStackTrace();
         }
+        System.out.println("\ndisconnected");
+        System.exit(0);
     }
 
 

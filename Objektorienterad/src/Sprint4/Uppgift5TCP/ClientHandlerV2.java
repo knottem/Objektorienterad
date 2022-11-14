@@ -2,14 +2,17 @@ package Sprint4.Uppgift5TCP;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ClientHandlerV2 implements Runnable{
 
     private Socket socket;
     private PrintWriter printWriter;
     private BufferedReader bufferedReader;
-    static Databas databas = new Databas();
-    boolean found;
+    private static final ArrayList<Kompis> databas = new Databas().getDatabase();
+
+    public boolean found;
+    public String messageFromClient;
 
     public ClientHandlerV2(Socket socket){
         try {
@@ -24,16 +27,14 @@ public class ClientHandlerV2 implements Runnable{
 
     @Override
     public void run() {
-        String messageFromClient;
-
         while(socket.isConnected()){
             try{
                 found = false;
                 messageFromClient = bufferedReader.readLine();
 
-                for (int i = 0; i < databas.database.size(); i++) {
-                    if (messageFromClient.equalsIgnoreCase(databas.database.get(i).getName())) {
-                        printWriter.println(databas.database.get(i).toString());
+                for (Kompis database : databas) {
+                    if (messageFromClient.equalsIgnoreCase(database.getName())) {
+                        printWriter.println(database);
                         found = true;
                     }
                 }
