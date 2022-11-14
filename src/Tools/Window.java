@@ -5,7 +5,6 @@ import java.awt.*;
 
 public class Window {
 
-
     public void setupWindowChat(String username){
 
         JFrame frame = new JFrame("Temp");
@@ -13,6 +12,8 @@ public class Window {
         JButton button = new JButton("button");
         JTextField textField = new JTextField();
         JTextArea textArea = new JTextArea(20,40);
+
+
 
         frame.setTitle("Chat: " + username);
         frame.setLayout(new BorderLayout());
@@ -33,6 +34,32 @@ public class Window {
 
     }
 
+    public void setUpWindowOneQuestion(){
+        JFrame frame = new JFrame("Sensor Program;");
+        JPanel topPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
+        JLabel question = new JLabel("Question:");
+        JTextField text = new JTextField();
+        JButton button = new JButton("Skicka");
+
+
+        topPanel.add(question);
+        topPanel.add(text);
+        topPanel.setLayout(new GridLayout(1,1));
+
+        bottomPanel.add(button);
+
+        frame.setLayout(new GridLayout(2,1));
+        frame.add(topPanel, 0);
+        frame.add(bottomPanel,1);
+
+
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(true);
+        frame.setSize(300,100);
+    }
 
     public void setUpWindowTwoQuestions(){
 
@@ -44,6 +71,8 @@ public class Window {
         JTextField cityText = new JTextField();
         JTextField tempText = new JTextField();
         JButton button = new JButton("Skicka");
+
+
 
         topPanel.add(cityLabel);
         topPanel.add(cityText);
@@ -69,7 +98,7 @@ public class Window {
     public static void main(String[] args) {
         Window w = new Window();
         w.setupWindowChat("testPerson");
-        Window b = new Window();
-        b.setUpWindowTwoQuestions();
+        w.setUpWindowTwoQuestions();
+        w.setUpWindowOneQuestion();
     }
 }
