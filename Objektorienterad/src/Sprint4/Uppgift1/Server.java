@@ -17,7 +17,7 @@ public class Server {
             while(!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
                 counter++;
-                System.out.println("A new client has connected");
+                System.out.println("A new client has connected\nThis was client number " + counter);
                 PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
                 printWriter.println("You are client number " + counter);
             }

@@ -9,7 +9,7 @@ public class Client {
 
     String hostName = "localhost";
 
-    void ClientTest() throws IOException {
+    void ClientTest(){
         try{
         Socket socket = new Socket(hostName, 12345);
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -29,7 +29,7 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) {
-        //new Client().ClientTest();
+    public static void main(String[] args){
+        new Client().ClientTest();
     }
 }
