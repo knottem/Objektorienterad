@@ -10,14 +10,13 @@ public class Client {
     String hostName = "localhost";
 
     void ClientTest(){
-        try{
-        Socket socket = new Socket(hostName, 12345);
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        try(Socket socket = new Socket(hostName, 12345)){
+            //BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-        String fromServer;
-        while ((fromServer = bufferedReader.readLine()) != null) {
-            System.out.println(fromServer);
+            String fromServer;
+            while ((fromServer = bufferedReader.readLine()) != null) {
+                System.out.println(fromServer);
             }
         }
         catch (UnknownHostException e) {
