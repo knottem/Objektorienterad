@@ -1,4 +1,4 @@
-package Sprint4.Demo;
+package Tools;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -8,7 +8,7 @@ import java.util.Enumeration;
 
 public class ListNetworkInterface {
 
-    public ListNetworkInterface(){
+    private void listNetworkInterfaces(){
         try {
             String ip;
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
@@ -32,6 +32,7 @@ public class ListNetworkInterface {
     }
 
     public static void main(String[] args){
-        ListNetworkInterface i = new ListNetworkInterface();
+        ListNetworkInterface l = new ListNetworkInterface();
+        l.listNetworkInterfaces();
     }
 }

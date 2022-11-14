@@ -1,59 +1,40 @@
 package Sprint4.Uppgift6;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Server {
 
-    private static final int receivePort = 23456;
-    private static final int sendPort = 23457;
-    byte[] data = new byte[256];
+    private static final int port = 12345;
 
-    static Databas databas = new Databas();
-    boolean found;
+    private final ServerSocket serverSocket;
 
-    static InetAddress ip;
+    public Server(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
+    }
 
+    public void startServer(){
 
-    @SuppressWarnings("InfiniteLoopStatement")
-    private void server() {
-        try (DatagramSocket socket = new DatagramSocket(receivePort)){
-                while (true) {
-                    found = false;
-                    DatagramPacket packet = new DatagramPacket(data, data.length);
-                    socket.receive(packet);
+        try{
+            while(!serverSocket.isClosed()){
+                Socket socket = serverSocket.accept();
+                System.out.println("A new client has connected: " + socket.getInetAddress().getHostName());
 
-                    ip = packet.getAddress();
+                ClientHandler clientHandler = new ClientHandler(socket);
 
-                    String message = new String(packet.getData(), 0, packet.getLength());
-
-                    for (int i = 0; i < databas.database.size(); i++) {
-                        if (message.equalsIgnoreCase(databas.database.get(i).getName())) {
-                            broadcast(databas.database.get(i).toString());
-                            found = true;
-                        }
-                    }
-                    if (!(found)) {
-                        broadcast("Personen hittades inte i telefonboken");
-                    }
+                Thread thread = new Thread(clientHandler);
+                thread.start();
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
-    public static void broadcast(String broadcastMessage) throws IOException {
-        DatagramSocket socket = new DatagramSocket();
-        DatagramPacket packet = new DatagramPacket(broadcastMessage.getBytes(), broadcastMessage.length(), ip, sendPort);
-        socket.send(packet);
-        socket.close();
-        System.out.println("Message sent to: " + ip.getHostName());
+
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(port);
+        Server server = new Server(serverSocket);
+        server.startServer();
     }
 
-    public static void main(String[] args) {
-        Server server = new Server();
-        server.server();
-
-    }
 }
