@@ -8,7 +8,6 @@ public class ClientHandlerV2 implements Runnable{
     private Socket socket;
     private PrintWriter printWriter;
     private BufferedReader bufferedReader;
-
     static Databas databas = new Databas();
     boolean found;
 
