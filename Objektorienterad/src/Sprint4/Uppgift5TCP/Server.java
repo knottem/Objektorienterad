@@ -18,7 +18,8 @@ public class Server {
             while(!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
                 System.out.println("A new client has connected");
-                ClientHandler clientHandler = new ClientHandler(socket);
+                //ClientHandler clientHandler = new ClientHandler(socket);
+                ClientHandlerV2 clientHandler = new ClientHandlerV2(socket);
 
                 Thread thread = new Thread(clientHandler);
                 thread.start();
