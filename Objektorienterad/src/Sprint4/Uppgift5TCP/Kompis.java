@@ -15,7 +15,7 @@ public class Kompis {
     public String getName() {
         return name;
     }
-    
+
     @Override
     public String toString() {
         return "Namn: " + name + "\nEmail: " + email + "\nTfn: " + phoneNumber + "\nFödelsedag: " + dateOfBirth;
