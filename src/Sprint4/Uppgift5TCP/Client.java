@@ -30,6 +30,8 @@ public class Client {
                 System.out.println("\nVilken person vill du söka efter:");
                 String input = scan.nextLine();
                 if (input.contains("exit")) {
+                    System.out.println("Disconnected");
+                    System.exit(0);
                     break;
                 }
                 else {

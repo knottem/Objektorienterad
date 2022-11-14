@@ -17,7 +17,8 @@ public class Server {
         try{
             while(!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
-                System.out.println("A new client has connected");
+                System.out.println("A new client has connected: " + socket.getInetAddress().getHostName());
+
                 //ClientHandler clientHandler = new ClientHandler(socket);
                 ClientHandlerV2 clientHandler = new ClientHandlerV2(socket);
 
