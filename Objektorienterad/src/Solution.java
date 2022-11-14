@@ -1,25 +1,23 @@
 import java.util.Arrays;
 
 class Solution {
-    public static int removeDuplicates(int[] nums) {
-        int result = 1;
-        for (int i = 0; i < nums.length-1; i++) {
-            if(nums[i]!=nums[i+1]) {
-                nums[result]=nums[i+1];
-                result++;
+        public int finalValueAfterOperations(String[] operations) {
+            int test = 0;
+            for (String operation : operations) {
+                if (operation.equals("++X") || operation.equals("X++")) {
+                    test++;
+                } else if (operation.equals("--X") || operation.equals("X--")) {
+                    test--;
+                }
             }
+            return test;
         }
-        return result;
-    }
 
     public static void main(String[] args) {
+        Solution a = new Solution();
+        String[] operations = {"--X","X++","X++"};
+        System.out.println(a.finalValueAfterOperations(operations));
 
-        int[] test = {0,0,1,1,1,2,2,3,3,4};
-        int[] expected = {0,1,2,3,4};
-        System.out.println(Arrays.toString(expected));
-        int k = removeDuplicates(test);
-        assert k == expected.length;
-        System.out.println(k);
     }
 
 }
