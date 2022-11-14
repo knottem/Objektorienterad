@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 public class Client {
 
+    private static final String ip = "localhost";
+    private static final int port = 12345;
+
     private static Socket socket;
     private static BufferedReader bufferedReader;
     private static BufferedWriter bufferedWriter;
@@ -90,7 +93,7 @@ public class Client {
 
 
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("localhost",12345);
+        Socket socket = new Socket(ip,port);
         Client client = new Client(socket);
         client.listenForMessage();
         client.client();
