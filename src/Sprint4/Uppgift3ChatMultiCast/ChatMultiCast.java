@@ -11,7 +11,7 @@ import java.time.LocalTime;
 public class ChatMultiCast {
 
     private String ip = "234.235.236.237";
-    private String net = "wlan1";
+    private String net = "wlan2";
     private int port = 23456;
     private String username;
 
@@ -123,8 +123,7 @@ public class ChatMultiCast {
             quit = true;
             socket.close();
             button.setText("Connect");
-        }
-        else {
+        } else {
             quit = false;
             startServices();
             sendMessages(" joined chat");

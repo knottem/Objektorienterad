@@ -16,6 +16,13 @@ public class Kompis {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+    public int getPhoneNumber(){
+        return phoneNumber;
+    }
+
     @Override
     public String toString() {
         return "Namn: " + name + "\nEmail: " + email + "\nTfn: " + phoneNumber + "\nFödelsedag: " + dateOfBirth;

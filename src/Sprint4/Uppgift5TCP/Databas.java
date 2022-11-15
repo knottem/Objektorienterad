@@ -19,4 +19,13 @@ public class Databas {
     public ArrayList<Kompis> getDatabase() {
         return database;
     }
+
+    public String getName(String s){
+        for (Kompis kompis : database){
+            if (kompis.getName().equalsIgnoreCase(s)){
+                return kompis.toString();
+            }
+        }
+        return null;
+    }
 }

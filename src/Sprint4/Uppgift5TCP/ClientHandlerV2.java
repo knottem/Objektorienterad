@@ -10,6 +10,7 @@ public class ClientHandlerV2 implements Runnable{
     private PrintWriter printWriter;
     private BufferedReader bufferedReader;
     private static final ArrayList<Kompis> databas = new Databas().getDatabase();
+    private static final Databas data = new Databas();
 
     public boolean found;
     public String messageFromClient;
@@ -30,13 +31,37 @@ public class ClientHandlerV2 implements Runnable{
         while(socket.isConnected()){
             try{
                 found = false;
+                printWriter.println("\nVilken person vill du söka efter:");
+                printWriter.println("'email =' för att söka med email.");
+                printWriter.println("'tfnr =' för att söka med telefonnummer");
                 messageFromClient = bufferedReader.readLine();
 
-                for (Kompis database : databas) {
-                    if (messageFromClient.equalsIgnoreCase(database.getName())) {
-                        printWriter.println(database);
-                        found = true;
+
+                if(messageFromClient.startsWith("email =")){
+                    for (Kompis database : databas){
+                        String[] messageSplit = messageFromClient.split(" =", 2);
+                        if(messageSplit[1].trim().equalsIgnoreCase(database.getEmail())){
+                            printWriter.println(database);
+                            found = true;
+                        }
                     }
+                } else if (messageFromClient.startsWith("tfnr =")) {
+                    for (Kompis database : databas){
+                        String[] messageSplit = messageFromClient.split(" =", 2);
+                        if(messageSplit[1].trim().equalsIgnoreCase(String.valueOf(database.getPhoneNumber()))){
+                            printWriter.println(database);
+                            found = true;
+                        }
+                    }
+                } else {
+                    for (Kompis database : databas) {
+                        if (messageFromClient.equalsIgnoreCase(database.getName())) {
+                            printWriter.println(database);
+                            found = true;
+                        }
+                    }
+
+                    //printWriter.println(data.getName(messageFromClient));
                 }
                 if (!(found)) {
                     printWriter.println("Personen hittades inte i telefonboken");

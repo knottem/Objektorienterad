@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Client {
 
     private static final String ip = "localhost";
-    private static final int port = 12345;
+    private static final int port = 51001;
 
     private static Socket socket;
     private static BufferedReader bufferedReader;
@@ -30,7 +30,6 @@ public class Client {
         while(true){
             if(!wait) {
                 Scanner scan = new Scanner(System.in);
-                System.out.println("\nVilken person vill du söka efter:");
                 String input = scan.nextLine();
                 if (input.contains("exit")) {
                     System.out.println("Disconnected");

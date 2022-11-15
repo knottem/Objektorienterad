@@ -5,10 +5,9 @@ import java.net.*;
 
 public class Server {
 
-    private static final int port = 12345;
+    private static final int port = 51001;
 
     private final ServerSocket serverSocket;
-
     public Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
