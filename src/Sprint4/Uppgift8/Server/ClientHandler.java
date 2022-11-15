@@ -1,8 +1,5 @@
 package Sprint4.Uppgift8.Server;
 
-import Sprint4.Uppgift8.Initiator;
-import Sprint4.Uppgift8.Response;
-import Sprint4.Uppgift8.resources.Kompis;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,16 +7,13 @@ import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayList;
 
 public class ClientHandler implements Runnable{
 
     private Socket socket;
     private BufferedReader bufferedReader;
     private ObjectOutputStream objectOutputStream;
-    private static final ArrayList<Kompis> databas = new Databas().getDatabase();
 
-    public boolean found = true;
     public String messageFromClient;
 
     public ClientHandler(Socket socket){
@@ -39,7 +33,6 @@ public class ClientHandler implements Runnable{
             try {
                 Protocol protocol = new Protocol();
                 objectOutputStream.writeObject(protocol.processInput(null));
-                objectOutputStream.writeObject(5);
                 messageFromClient = bufferedReader.readLine();
                 objectOutputStream.writeObject(protocol.processInput(messageFromClient));
 
