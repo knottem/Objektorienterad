@@ -3,55 +3,45 @@ package Sprint4.Uppgift9;
 public class KnockKnockProtocol {
 
     private static final int WAITING = 0;
-    private static final int SENTKNOCKKNOCK = 1;
-    private static final int SENTCLUE = 2;
+    private static final int SENTQUESTION = 1;
+    private static final int ANSWER = 2;
     private static final int ANOTHER = 3;
 
-    private static final int NUMJOKES = 5;
+    private static final int NUMJOKES = 3;
 
     private int state = WAITING;
-    private int currentJoke = 0;
+    private int currentQuestion = 0;
 
-    private final String[] clues = { "Turnip", "Little Old Lady", "Atch", "Who", "Who" };
-    private final String[] answers = { "Turnip the heat, it's cold in here!",
-            "I didn't know you could yodel!",
-            "Bless you!",
-            "Is there an owl in here?",
-            "Is there an echo in here?" };
+    private final String[] questions = { "Vilken färg har solen?", "Är Stockholm sveriges Huvudstad", "Är Sverige med i EU?(2022)" };
+    private final String[] answers = { "gul", "ja", "ja"};
 
     public String processInput(String theInput) {
         String theOutput = null;
 
         if (state == WAITING) {
-            theOutput = "Knock! Knock!";
-            state = SENTKNOCKKNOCK;
-        } else if (state == SENTKNOCKKNOCK) {
-            if (theInput.equalsIgnoreCase("Who's there?")) {
-                theOutput = clues[currentJoke];
-                state = SENTCLUE;
-            } else {
-                theOutput = "You're supposed to say \"Who's there?\"! " +
-                        "Try again. Knock! Knock!";
+            theOutput = "Hello, want a Question?";
+            state = SENTQUESTION;
+        } else if (state == SENTQUESTION) {
+            if(theInput.equalsIgnoreCase("y")) {
+                theOutput = questions[currentQuestion];
+                state = ANSWER;
             }
-        } else if (state == SENTCLUE) {
-            if (theInput.equalsIgnoreCase(clues[currentJoke] + " who?")) {
-                theOutput = answers[currentJoke] + " Want another? (y/n)";
+        } else if (state == ANSWER) {
+            if (theInput.equalsIgnoreCase(answers[currentQuestion])) {
+                theOutput = "Rätt svar, Want another? (y/n)";
                 state = ANOTHER;
             } else {
-                theOutput = "You're supposed to say \"" +
-                        clues[currentJoke] +
-                        " who?\"" +
-                        "! Try again. Knock! Knock!";
-                state = SENTKNOCKKNOCK;
+                theOutput = "Fel svar.";
+                state = WAITING;
             }
         } else if (state == ANOTHER) {
             if (theInput.equalsIgnoreCase("y")) {
-                theOutput = "Knock! Knock!";
-                if (currentJoke == (NUMJOKES - 1))
-                    currentJoke = 0;
+                theOutput = "want a Question?";
+                if (currentQuestion == (NUMJOKES - 1))
+                    currentQuestion = 0;
                 else
-                    currentJoke++;
-                state = SENTKNOCKKNOCK;
+                    currentQuestion++;
+                state = SENTQUESTION;
             } else {
                 theOutput = "Bye.";
                 state = WAITING;

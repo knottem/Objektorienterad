@@ -1,4 +1,4 @@
-package Sprint4.Uppgift8.Server;
+package Sprint4.Uppgift8.resources;
 
 import java.io.Serializable;
 

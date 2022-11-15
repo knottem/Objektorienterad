@@ -4,7 +4,7 @@ import java.io.Serializable;
 public class Initiator implements Serializable{
 
     public String WelcomeMessage(){
-        return "Välkommen till servern ";
+        return "Välkommen till servern \nVilken person vill du söka efter?";
     }
 
 }

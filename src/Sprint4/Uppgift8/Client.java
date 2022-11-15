@@ -1,5 +1,7 @@
 package Sprint4.Uppgift8;
 
+import Sprint4.Uppgift15.NumberQueue;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -62,19 +64,25 @@ public class Client {
     public void listenForMessage(){
         new Thread(() -> {
             try{
-                Object kompis;
-                while ((kompis = objectInputStream.readObject()) != null) {
-
-                    if (kompis instanceof Initiator) {
-                        System.out.println(((Initiator) kompis).WelcomeMessage() + socket.getInetAddress().getHostName());
-                    } else if (kompis instanceof Response) {
-                        if(!(((Response) kompis).getText() == null)){
-                            System.out.println(((Response) kompis).getText());
-                        } else if (!((Response) kompis).getSuccess()) {
+                Object fromServer;
+                while ((fromServer = objectInputStream.readObject()) != null) {
+                    if(fromServer instanceof String) {
+                        System.out.println(fromServer);
+                        wait = false;
+                    } else if (fromServer instanceof Integer){
+                        int test = (int) fromServer;
+                        System.out.println(test);
+                        wait = false;
+                    } else if (fromServer instanceof Initiator) {
+                        System.out.println(((Initiator) fromServer).WelcomeMessage() + socket.getInetAddress().getHostName());
+                        wait = false;
+                    } else if (fromServer instanceof Response) {
+                        if(!((Response) fromServer).getSuccess()) {
                             System.out.println("Personen finns inte i databasen");
-                        }  else {
-                            System.out.println(((Response) kompis).getPerson());
+                        } else {
+                            System.out.println(((Response) fromServer).getKompis());
                         }
+                        wait = false;
                     }
                 }
             }catch (IOException e){

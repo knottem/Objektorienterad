@@ -11,7 +11,7 @@ public class KnockKnockClient {
     public static void main(String[] args) throws IOException {
 
         String hostName = "localhost";
-        int portNumber = 12345;
+        int portNumber = 50250;
 
         try (
                 Socket kkSocket = new Socket(hostName, portNumber);

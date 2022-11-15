@@ -1,9 +1,6 @@
 package Sprint4.Uppgift7;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -14,7 +11,7 @@ public class Client {
 
     private static Socket socket;
     private static ObjectInputStream objectInputStream;
-    private static BufferedWriter bufferedWriter;
+    private static PrintWriter printWriter;
 
 
     boolean wait;
@@ -22,10 +19,10 @@ public class Client {
     public Client(Socket socket) {
         try {
             Client.socket = socket;
-            bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
             objectInputStream = new ObjectInputStream(socket.getInputStream());
         }catch (IOException e){
-            closeEverything(socket,objectInputStream,bufferedWriter);
+            closeEverything(socket,objectInputStream,printWriter);
         }
     }
 
@@ -41,23 +38,13 @@ public class Client {
                     break;
                 }
                 else {
-                    broadcast(input);
+                    printWriter.println(input);
                     wait = true;
                 }
             }
         }
     }
 
-    public static void broadcast(String broadcastMessage) {
-        try{
-            bufferedWriter.write(broadcastMessage);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
-        } catch (IOException e) {
-           closeEverything(socket, objectInputStream, bufferedWriter);
-        }
-
-    }
 
     public void listenForMessage(){
         new Thread(() -> {
@@ -67,31 +54,35 @@ public class Client {
 
                     if (kompis instanceof Initiator) {
                         System.out.println(((Initiator) kompis).WelcomeMessage() + socket.getInetAddress().getHostName());
+                        wait = false;
                     } else if (kompis instanceof Response) {
                         if(!(((Response) kompis).getText() == null)){
                             System.out.println(((Response) kompis).getText());
+                            wait = false;
                         } else if (!((Response) kompis).getSuccess()) {
                             System.out.println("Personen finns inte i databasen");
+                            wait = false;
                         }  else {
                             System.out.println(((Response) kompis).getPerson());
+                            wait = false;
                         }
                     }
                 }
             }catch (IOException e){
                 e.printStackTrace();
-                closeEverything(socket,objectInputStream,bufferedWriter);
+                closeEverything(socket,objectInputStream,printWriter);
             }catch (ClassNotFoundException e) {
                 System.out.println("Klassen hittades inte");
             }
         }).start();
     }
-    public static void closeEverything(Socket socket, ObjectInputStream objectInputStream, BufferedWriter bufferedWriter){
+    public static void closeEverything(Socket socket, ObjectInputStream objectInputStream, PrintWriter printWriter){
         try{
             if(objectInputStream != null){
                 objectInputStream.close();
             }
-            if(bufferedWriter != null){
-                bufferedWriter.close();
+            if(printWriter != null){
+                printWriter.close();
             }
             if(socket != null){
                 socket.close();

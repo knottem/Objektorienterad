@@ -11,7 +11,7 @@ public class KnockKnockServer {
 
     public static void main(String[] args) throws IOException {
 
-        int portNumber = 12345;
+        int portNumber = 50250;
 
         try (
                 ServerSocket serverSocket = new ServerSocket(portNumber);

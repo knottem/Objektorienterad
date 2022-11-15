@@ -1,5 +1,7 @@
 package Sprint4.Uppgift8.Server;
 
+import Sprint4.Uppgift8.resources.Kompis;
+
 import java.util.ArrayList;
 
 public class Databas {
