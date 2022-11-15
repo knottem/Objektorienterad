@@ -36,41 +36,28 @@ public class Client {
     public void sendMessage(){
         try{
             printWriter.println(username);
-
             while(socket.isConnected()){
-
-                jTextField.addActionListener(e -> {
-                    if(!(jTextField.getText().equals(""))) {
-                        messageToSend = jTextField.getText();
-                        jTextField.setText("");
-                    }
-                });
                 if(messageToSend != null){
                     if(messageToSend.startsWith("/nick")){
-                        String[] nameChange = messageToSend.split(" ", 2);
+                        String[] nameChange = messageToSend.split(" ");
                         if(nameChange.length == 2){
                             username = nameChange[1];
-                            printWriter.println(messageToSend);
+                            sendMessage(messageToSend);
                             frame.setTitle("Chat: " + username);
+                        } else {
+                            jTextArea.append("Username can only be one word\n");
                             messageToSend = null;
                         }
-                    }
-                    else if(messageToSend.startsWith("/quit") || button.getModel().isPressed()){
-                        if(messageToSend.startsWith("/quit")) {
-                            printWriter.println(messageToSend);
-                        }
-                        else{
-                            printWriter.println("/quit");
-                        }
-                        closeEverything(socket,bufferedReader,printWriter);
-                        System.exit(0);
+                    } else if(messageToSend.startsWith("/quit") || button.getModel().isPressed()){
+                           sendMessage("/quit");
+                            closeEverything(socket,bufferedReader,printWriter);
+                            System.exit(0);
                     } else if (messageToSend.startsWith("/help")) {
                         jTextArea.append("HELP\n/nick to change your nickname\n/quit to quit the program\n");
                         jTextField.setText("");
                         messageToSend = null;
                     } else {
-                        printWriter.println(messageToSend);
-                        messageToSend = null;
+                        sendMessage(messageToSend);
                     }
                 }
             }
@@ -93,6 +80,11 @@ public class Client {
                 }
             }
         }).start();
+    }
+
+    public void sendMessage(String message){
+        printWriter.println(message);
+        messageToSend = null;
     }
 
     public void closeEverything(Socket socket, BufferedReader bufferedReader, PrintWriter printWriter){
@@ -133,6 +125,12 @@ public class Client {
 
         button.addActionListener(e -> System.exit(0));
 
+        jTextField.addActionListener(e -> {
+            if(!(jTextField.getText().equals(""))) {
+                messageToSend = jTextField.getText();
+                jTextField.setText("");
+            }
+        });
 
     }
 
