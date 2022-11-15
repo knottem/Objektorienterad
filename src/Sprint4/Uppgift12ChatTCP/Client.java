@@ -41,7 +41,7 @@ public class Client {
                     if(messageToSend.startsWith("/nick")){
                         String[] nameChange = messageToSend.split(" ");
                         if(nameChange.length == 2){
-                            username = nameChange[1];
+                            username = nameChange[1].trim();
                             sendMessage(messageToSend);
                             frame.setTitle("Chat: " + username);
                         } else {
@@ -49,7 +49,7 @@ public class Client {
                             messageToSend = null;
                         }
                     } else if(messageToSend.startsWith("/quit") || button.getModel().isPressed()){
-                           sendMessage("/quit");
+                            sendMessage("/quit");
                             closeEverything(socket,bufferedReader,printWriter);
                             System.exit(0);
                     } else if (messageToSend.startsWith("/help")) {
