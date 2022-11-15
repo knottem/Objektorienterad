@@ -10,8 +10,9 @@ public class Client {
 
     private Socket socket;
     private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
+    private PrintWriter printWriter;
     private String username;
+
     private final JFrame frame = new JFrame();
     private final JPanel topPanel = new JPanel();
     private final JPanel bottomPanel = new JPanel();
@@ -23,20 +24,18 @@ public class Client {
     public Client(Socket socket, String username) {
         try {
             this.socket = socket;
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.printWriter = new PrintWriter(socket.getOutputStream(), true);
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.username = username;
         }catch (IOException e){
-            closeEverything(socket,bufferedReader,bufferedWriter);
+            closeEverything(socket,bufferedReader,printWriter);
         }
     }
 
 
     public void sendMessage(){
         try{
-            bufferedWriter.write(username);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
+            printWriter.println(username);
 
             while(socket.isConnected()){
 
@@ -51,35 +50,32 @@ public class Client {
                         String[] nameChange = messageToSend.split(" ", 2);
                         if(nameChange.length == 2){
                             username = nameChange[1];
-                            bufferedWriter.write(messageToSend);
-                            bufferedWriter.newLine();
-                            bufferedWriter.flush();
+                            printWriter.println(messageToSend);
                             frame.setTitle("Chat: " + username);
                             messageToSend = null;
                         }
                     }
                     else if(messageToSend.startsWith("/quit") || button.getModel().isPressed()){
                         if(messageToSend.startsWith("/quit")) {
-                            bufferedWriter.write(messageToSend);
+                            printWriter.println(messageToSend);
                         }
                         else{
-                            bufferedWriter.write("/quit");
+                            printWriter.println("/quit");
                         }
-                        bufferedWriter.newLine();
-                        bufferedWriter.flush();
-                        closeEverything(socket,bufferedReader,bufferedWriter);
+                        closeEverything(socket,bufferedReader,printWriter);
                         System.exit(0);
-                    }
-                    else {
-                        bufferedWriter.write(messageToSend);
-                        bufferedWriter.newLine();
-                        bufferedWriter.flush();
+                    } else if (messageToSend.startsWith("/help")) {
+                        jTextArea.append("HELP\n/nick to change your nickname\n/quit to quit the program\n");
+                        jTextField.setText("");
+                        messageToSend = null;
+                    } else {
+                        printWriter.println(messageToSend);
                         messageToSend = null;
                     }
                 }
             }
-        }catch (IOException e){
-            closeEverything(socket,bufferedReader,bufferedWriter);
+        }catch (Exception e){
+            closeEverything(socket,bufferedReader,printWriter);
         }
     }
 
@@ -93,19 +89,20 @@ public class Client {
                     jTextArea.append(msgFromGroupChat + "\n");
 
                 }catch (IOException e){
-                    closeEverything(socket,bufferedReader,bufferedWriter);
+                    closeEverything(socket,bufferedReader,printWriter);
                 }
             }
         }).start();
     }
 
-    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
+    public void closeEverything(Socket socket, BufferedReader bufferedReader, PrintWriter printWriter){
+        jTextArea.append("\n You've been disconnected");
         try{
               if(bufferedReader != null){
                   bufferedReader.close();
               }
-              if(bufferedWriter != null){
-                  bufferedWriter.close();
+              if(printWriter != null){
+                  printWriter.close();
               }
               if(socket != null){
                   socket.close();
