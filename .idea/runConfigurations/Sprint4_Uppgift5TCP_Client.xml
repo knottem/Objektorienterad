@@ -4,7 +4,7 @@
     <module name="Objektorienterad" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="Sprint4.Uppgift5TCP.*" />
+        <option name="PATTERN" value="Sprint4.Uppgift6.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

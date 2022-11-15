@@ -1,6 +1,12 @@
-package Sprint4.Uppgift6;
+package Sprint4.Uppgift8.Server;
 
-import java.io.*;
+import Sprint4.Uppgift8.Initiator;
+import Sprint4.Uppgift8.Response;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
@@ -12,7 +18,7 @@ public class ClientHandler implements Runnable{
     private ObjectOutputStream objectOutputStream;
     private static final ArrayList<Kompis> databas = new Databas().getDatabase();
 
-    public boolean found;
+    public boolean found = true;
     public String messageFromClient;
 
     public ClientHandler(Socket socket){
@@ -30,10 +36,14 @@ public class ClientHandler implements Runnable{
     public void run() {
         while(socket.isConnected()){
             try {
+                if(found){
+                    objectOutputStream.writeObject(new Initiator());
+                }
                 found = false;
-                objectOutputStream.writeObject(new Kompis("\nVilken person vill du söka efter:", null, null, null));
-                objectOutputStream.writeObject(new Kompis("'email =' för att söka med email.", null, null, null));
-                objectOutputStream.writeObject(new Kompis("'tfnr =' för att söka med telefonnummer", null, null, null));
+
+                objectOutputStream.writeObject(new Response("\nVilken person vill du söka efter:"));
+                objectOutputStream.writeObject(new Response("'email =' för att söka med email."));
+                objectOutputStream.writeObject(new Response("'tfnr =' för att söka med telefonnummer"));
 
                 messageFromClient = bufferedReader.readLine();
 
@@ -42,7 +52,7 @@ public class ClientHandler implements Runnable{
                     for (Kompis database : databas) {
                         String[] messageSplit = messageFromClient.split(" =", 2);
                         if (messageSplit[1].trim().equalsIgnoreCase(database.getEmail())) {
-                            objectOutputStream.writeObject(database);
+                            objectOutputStream.writeObject(new Response(true, database));
                             objectOutputStream.flush();
                             found = true;
                         }
@@ -52,7 +62,7 @@ public class ClientHandler implements Runnable{
                         for (Kompis database : databas) {
                             String[] messageSplit = messageFromClient.split(" =", 2);
                             if (messageSplit[1].trim().equalsIgnoreCase(database.getPhoneNumber())) {
-                                objectOutputStream.writeObject(database);
+                                objectOutputStream.writeObject(new Response(true, database));
                                 objectOutputStream.flush();
                                 found = true;
                             }
@@ -64,16 +74,17 @@ public class ClientHandler implements Runnable{
                 } else {
                     for (Kompis database : databas) {
                         if (messageFromClient.equalsIgnoreCase(database.getName())) {
-                            objectOutputStream.writeObject(database);
+                            objectOutputStream.writeObject(new Response(true,database));
                             objectOutputStream.flush();
                             found = true;
                         }
                     }
                 }
                 if (!(found)) {
-                    objectOutputStream.write("Personen hittades inte i telefonboken".getBytes());
-                    objectOutputStream.flush();
+                    objectOutputStream.writeObject(new Response(false));
+
                 }
+                found = false;
             }catch (SocketException e){
                 System.out.println("Client disconnected: " + socket.getInetAddress().getHostName());
                 closeEverything(socket, bufferedReader, objectOutputStream);

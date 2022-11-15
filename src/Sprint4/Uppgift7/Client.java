@@ -1,6 +1,9 @@
-package Sprint4.Uppgift6;
+package Sprint4.Uppgift7;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -59,15 +62,21 @@ public class Client {
     public void listenForMessage(){
         new Thread(() -> {
             try{
-                Kompis kompis;
-                while ((kompis = (Kompis) objectInputStream.readObject()) != null) {
-                    if(kompis.getEmail() == null) {
-                        System.out.println(kompis.getName());
-                    } else{
-                        System.out.println(kompis);
+                Object kompis;
+                while ((kompis = objectInputStream.readObject()) != null) {
+
+                    if (kompis instanceof Initiator) {
+                        System.out.println(((Initiator) kompis).WelcomeMessage() + socket.getInetAddress().getHostName());
+                    } else if (kompis instanceof Response) {
+                        if(!(((Response) kompis).getText() == null)){
+                            System.out.println(((Response) kompis).getText());
+                        } else if (!((Response) kompis).getSuccess()) {
+                            System.out.println("Personen finns inte i databasen");
+                        }  else {
+                            System.out.println(((Response) kompis).getPerson());
+                        }
                     }
-                    wait = false;
-                    }
+                }
             }catch (IOException e){
                 e.printStackTrace();
                 closeEverything(socket,objectInputStream,bufferedWriter);

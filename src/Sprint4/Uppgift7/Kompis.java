@@ -1,4 +1,4 @@
-package Sprint4.Uppgift6;
+package Sprint4.Uppgift7;
 
 import java.io.Serializable;
 

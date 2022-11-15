@@ -1,12 +1,15 @@
-package Sprint4.Uppgift5TCP;
+package Sprint4.Uppgift7;
+
 import java.io.IOException;
-import java.net.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Server {
 
-    private static final int port = 51001;
+    private static final int port = 12345;
 
     private final ServerSocket serverSocket;
+
     public Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
