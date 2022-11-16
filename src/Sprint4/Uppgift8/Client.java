@@ -1,6 +1,7 @@
 package Sprint4.Uppgift8;
 
-import Sprint4.Uppgift15.NumberQueue;
+import Sprint4.Uppgift8.Server.Initiator;
+import Sprint4.Uppgift8.resources.Response;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

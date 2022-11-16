@@ -16,6 +16,8 @@ public class ClientHandler implements Runnable{
 
     public String messageFromClient;
 
+    Protocol protocol = new Protocol();
+
     public ClientHandler(Socket socket){
         try {
             this.socket = socket;
@@ -31,54 +33,9 @@ public class ClientHandler implements Runnable{
     public void run() {
         while(socket.isConnected()){
             try {
-                Protocol protocol = new Protocol();
                 objectOutputStream.writeObject(protocol.processInput(null));
                 messageFromClient = bufferedReader.readLine();
                 objectOutputStream.writeObject(protocol.processInput(messageFromClient));
-
-                /*
-                objectOutputStream.writeObject("\nVilken person vill du söka efter:");
-                objectOutputStream.writeObject("'email =' för att söka med email.");
-                objectOutputStream.writeObject("'tfnr =' för att söka med telefonnummer");
-
-                messageFromClient = bufferedReader.readLine();
-
-                if (messageFromClient.startsWith("email =")) {
-                    for (Kompis database : databas) {
-                        String[] messageSplit = messageFromClient.split(" =", 2);
-                        if (messageSplit[1].trim().equalsIgnoreCase(database.getEmail())) {
-                            objectOutputStream.writeObject(new Response(true, database));
-                            found = true;
-                        }
-                    }
-                } else if (messageFromClient.startsWith("tfnr =")) {
-                    try {
-                        for (Kompis database : databas) {
-                            String[] messageSplit = messageFromClient.split(" =", 2);
-                            if (messageSplit[1].trim().equalsIgnoreCase(database.getPhoneNumber())) {
-                                objectOutputStream.writeObject(new Response(true, database));
-                                found = true;
-                            }
-                        }
-                    } catch (NumberFormatException e) {
-                        objectOutputStream.write("Endast siffror till ett meddelande".getBytes());
-                        found = true;
-                    }
-                } else {
-                    for (Kompis database : databas) {
-                        if (messageFromClient.equalsIgnoreCase(database.getName())) {
-                            objectOutputStream.writeObject(new Response(true,database));
-                            found = true;
-                        }
-                    }
-                }
-                if (!(found)) {
-                    objectOutputStream.writeObject(new Response(false));
-
-                }
-                found = false;
-
-                 */
             }catch (SocketException e){
                 System.out.println("Client disconnected: " + socket.getInetAddress().getHostName());
                 closeEverything(socket, bufferedReader, objectOutputStream);

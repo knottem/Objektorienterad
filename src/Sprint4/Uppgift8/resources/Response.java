@@ -1,12 +1,10 @@
-package Sprint4.Uppgift8;
-
-import Sprint4.Uppgift8.resources.Kompis;
+package Sprint4.Uppgift8.resources;
 
 import java.io.Serializable;
 
 public class Response implements Serializable {
 
-    private boolean success;
+    private final boolean success;
     private Kompis kompis;
 
     public Response(boolean success){
@@ -15,10 +13,6 @@ public class Response implements Serializable {
 
     public Response(boolean success, Kompis kompis){
         this.success = success;
-        this.kompis = kompis;
-    }
-
-    public void setKompis(Kompis kompis){
         this.kompis = kompis;
     }
 
