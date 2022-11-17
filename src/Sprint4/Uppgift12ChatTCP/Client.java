@@ -32,7 +32,6 @@ public class Client {
         }
     }
 
-
     public void sendMessage(){
         try{
             printWriter.println(username);
