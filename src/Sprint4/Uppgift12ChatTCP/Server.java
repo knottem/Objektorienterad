@@ -8,6 +8,7 @@ public class Server {
 
     static final int port = 12345;
     private final ServerSocket serverSocket;
+    private int counter = 0;
 
     public Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
@@ -18,8 +19,10 @@ public class Server {
         try{
             while(!serverSocket.isClosed()){
                 Socket socket = serverSocket.accept();
-                System.out.println("A new client has connected: " + socket.getInetAddress().getHostName());
+                counter++;
+                System.out.println("A new client has connected: " + socket.getInetAddress().getHostName() + " Nr: " + counter);
                 ClientHandler clientHandler = new ClientHandler(socket);
+                //ClientHandlerV2 clientHandler = new ClientHandlerV2(socket);
 
                 Thread thread = new Thread(clientHandler);
                 thread.start();

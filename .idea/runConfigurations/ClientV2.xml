@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Client" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="Sprint4.Uppgift12ChatTCP.Client" />
+  <configuration default="false" name="ClientV2" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="Sprint4.Uppgift12ChatTCP.ClientV2" />
     <module name="Objektorienterad" />
     <extension name="coverage">
       <pattern>
