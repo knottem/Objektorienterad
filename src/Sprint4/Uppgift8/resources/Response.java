@@ -6,9 +6,11 @@ public class Response implements Serializable {
 
     private final boolean success;
     private Kompis kompis;
+    private String string;
 
-    public Response(boolean success){
+    public Response(boolean success, String string){
         this.success = success;
+        this.string = string;
     }
 
     public Response(boolean success, Kompis kompis){
@@ -23,5 +25,9 @@ public class Response implements Serializable {
 
     public boolean getSuccess(){
         return success;
+    }
+
+    public String getString(){
+        return string;
     }
 }

@@ -16,7 +16,6 @@ public class ClientHandler implements Runnable{
     public ClientHandler(Socket socket){
         try {
             this.socket = socket;
-
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.printWriter = new PrintWriter(socket.getOutputStream(), true);
             this.clientUsername = bufferedReader.readLine();
@@ -38,28 +37,23 @@ public class ClientHandler implements Runnable{
                 if(messageFromClient.startsWith("/nick")){
                     String[] messageSplit = messageFromClient.split(" ", 2);
                     if(messageSplit.length == 2){
-                        broadcastMessage(LocalTime.now().withNano(0) + ":" + clientUsername + " renamed themselves to " + messageSplit[1]);
+                        broadcastMessage(clientUsername + " renamed themselves to " + messageSplit[1].trim());
                         System.out.println(clientUsername + " renamed themselves to " + messageSplit[1].trim());
                         clientUsername = messageSplit[1].trim();
                     }
-                }
-                else if(messageFromClient.startsWith("/quit")){
+                } else if(messageFromClient.startsWith("/quit")){
                     System.out.println(clientUsername + " has left the chat!");
                     closeEverything(socket,bufferedReader,printWriter);
                     break;
-                }
-                else if(messageFromClient.startsWith("/msg")){
+                } else if(messageFromClient.startsWith("/msg")){
                     String[] messageSplit = messageFromClient.split(" ", 2);
                     if(messageSplit.length == 2){
-                        broadcastMessage(LocalTime.now().withNano(0) + ":" + clientUsername + ": " + messageSplit[1]);
+                        broadcastMessage(clientUsername + ": " + messageSplit[1]);
                     }
+                } else {
+                    broadcastMessage(clientUsername +": "+ messageFromClient);
                 }
-
-                else{
-                    broadcastMessage(LocalTime.now().withNano(0) + ":" + clientUsername +": "+ messageFromClient);
-                }
-
-            }catch (IOException e){
+            } catch (IOException e){
                 closeEverything(socket, bufferedReader, printWriter);
                 break;
             }
@@ -69,7 +63,7 @@ public class ClientHandler implements Runnable{
     public void broadcastMessage(String messageToSend){
         for(ClientHandler clientHandler : clientHandlers){
             try{
-                clientHandler.printWriter.println(messageToSend);
+                clientHandler.printWriter.println(LocalTime.now().withNano(0) + ": " + messageToSend);
             }catch (Exception e){
                 closeEverything(socket,bufferedReader,printWriter);
             }

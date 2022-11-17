@@ -37,7 +37,7 @@ public class ClientHandler implements Runnable{
                 messageFromClient = bufferedReader.readLine();
                 objectOutputStream.writeObject(protocol.processInput(messageFromClient));
             }catch (SocketException e){
-                System.out.println("Client disconnected: " + socket.getInetAddress().getHostName());
+                System.out.println("Client " + socket.getInetAddress().getHostName() + " disconnected");
                 closeEverything(socket, bufferedReader, objectOutputStream);
                 break;
             }catch (IOException e){

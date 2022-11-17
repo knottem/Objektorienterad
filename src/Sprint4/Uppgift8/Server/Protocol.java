@@ -8,8 +8,9 @@ import java.util.ArrayList;
 public class Protocol {
 
     private static final int FIRST_INIT = 0;
-    private static final int WAITING_FOR_REQUEST = 1;
-    private static final int REPEAT_REQUEST = 2;
+    private static final int REPEAT_REQUEST = 1;
+    private static final int WAITING_FOR_REQUEST = 2;
+
 
     private int state = FIRST_INIT;
     Kompis kompis;
@@ -20,7 +21,7 @@ public class Protocol {
         Object output = null;
 
         if(state == FIRST_INIT) {
-            output = initiator.WelcomeMessage();
+            output = initiator.welcomeMessage();
             state = WAITING_FOR_REQUEST;
         } else if (state == REPEAT_REQUEST) {
             output = initiator.repeatMessage();
@@ -33,10 +34,12 @@ public class Protocol {
                     kompis = data;
                 } else if(data.getPhoneNumber().equalsIgnoreCase(theInput)){
                     kompis = data;
+                } else if (data.getAdress().equalsIgnoreCase(theInput)) {
+                    kompis = data;
                 }
             }
             if(kompis == null){
-                output = new Response(false);
+                output = new Response(false, theInput);
                 state = REPEAT_REQUEST;
             } else {
                 output = new Response(true, kompis);

@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.net.SocketException;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Client {
@@ -19,6 +21,8 @@ public class Client {
     private static ObjectInputStream objectInputStream;
     private static BufferedWriter bufferedWriter;
 
+    private static String serverName;
+
 
     boolean wait;
 
@@ -27,11 +31,11 @@ public class Client {
             Client.socket = socket;
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             objectInputStream = new ObjectInputStream(socket.getInputStream());
+            serverName = socket.getInetAddress().getHostName();
         }catch (IOException e){
             closeEverything(socket,objectInputStream,bufferedWriter);
         }
     }
-
 
     void client(){
         while(true){
@@ -74,22 +78,21 @@ public class Client {
                         int test = (int) fromServer;
                         System.out.println(test);
                         wait = false;
-                    } else if (fromServer instanceof Initiator) {
-                        System.out.println(((Initiator) fromServer).WelcomeMessage() + socket.getInetAddress().getHostName());
+                    } else if (fromServer instanceof Initiator initiator) {
+                        System.out.println(initiator.welcomeMessage());
                         wait = false;
-                    } else if (fromServer instanceof Response) {
-                        if(!((Response) fromServer).getSuccess()) {
-                            System.out.println("Personen finns inte i databasen");
+                    } else if (fromServer instanceof Response response) {
+                        if(!(response.getSuccess())) {
+                            System.out.println("Personen hittades inte med sök: " + response.getString());
                         } else {
-                            System.out.println(((Response) fromServer).getKompis());
+                            System.out.println(response.getKompis());
                         }
                         wait = false;
                     }
                 }
-            }catch (IOException e){
-                e.printStackTrace();
+            }catch (SocketException e){
                 closeEverything(socket,objectInputStream,bufferedWriter);
-            }catch (ClassNotFoundException e) {
+            }catch (ClassNotFoundException | IOException e) {
                 System.out.println("Klassen hittades inte");
             }
         }).start();
@@ -108,7 +111,7 @@ public class Client {
         }catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println("\ndisconnected");
+        System.out.println("\nLost connection to server: " + serverName);
         System.exit(0);
     }
 

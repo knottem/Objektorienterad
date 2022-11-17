@@ -55,15 +55,15 @@ public class Client {
                     if (kompis instanceof Initiator) {
                         System.out.println(((Initiator) kompis).WelcomeMessage() + socket.getInetAddress().getHostName());
                         wait = false;
-                    } else if (kompis instanceof Response) {
-                        if(!(((Response) kompis).getText() == null)){
+                    } else if (kompis instanceof Response response) {
+                        if(!(response.getText() == null)){
                             System.out.println(((Response) kompis).getText());
                             wait = false;
-                        } else if (!((Response) kompis).getSuccess()) {
+                        } else if (!response.getSuccess()) {
                             System.out.println("Personen finns inte i databasen");
                             wait = false;
                         }  else {
-                            System.out.println(((Response) kompis).getPerson());
+                            System.out.println(response.getPerson());
                             wait = false;
                         }
                     }

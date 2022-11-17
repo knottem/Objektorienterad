@@ -134,6 +134,7 @@ public class Client {
 
     }
 
+
     public static void main(String[] args) throws IOException {
 
         String username = JOptionPane.showInputDialog("What's your username?");

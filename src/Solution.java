@@ -1,7 +1,12 @@
-class Solution {
+class Solution{
+    public void hello(){
+        System.out.println("hello");
+    }
 
     public static void main(String[] args) {
-        System.out.println("Hello");
+        Solution solution = new Solution();
+        solution.hello();
+        System.out.println(45);
 
     }
 
