@@ -1,4 +1,4 @@
-package Sprint3.Uppgift1;
+package Sprint1.Uppgift10.Person.Uppgift1;
 
 import java.awt.*;
 import java.awt.event.*;

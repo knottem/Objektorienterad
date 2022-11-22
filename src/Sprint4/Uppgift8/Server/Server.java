@@ -22,7 +22,6 @@ public class Server {
                 System.out.println("A new client has connected: " + socket.getInetAddress().getHostName());
 
                 ClientHandler clientHandler = new ClientHandler(socket);
-
                 Thread thread = new Thread(clientHandler);
                 thread.start();
             }

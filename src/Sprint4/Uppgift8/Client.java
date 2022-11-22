@@ -37,6 +37,7 @@ public class Client {
         }
     }
 
+
     void client(){
         while(true){
             if(!wait) {

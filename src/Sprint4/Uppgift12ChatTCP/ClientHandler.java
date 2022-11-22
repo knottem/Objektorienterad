@@ -16,6 +16,7 @@ public class ClientHandler implements Runnable{
     public ClientHandler(Socket socket){
         try {
             this.socket = socket;
+
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.printWriter = new PrintWriter(socket.getOutputStream(), true);
             this.clientUsername = bufferedReader.readLine();
